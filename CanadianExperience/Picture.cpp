@@ -7,14 +7,11 @@
 
 #include "stdafx.h"
 #include "Picture.h"
-#include <iostream>
 
 using namespace Gdiplus;
-using namespace std;
 
 CPicture::CPicture()
 {
-	cout << "Testing github" << endl;
 }
 
 
