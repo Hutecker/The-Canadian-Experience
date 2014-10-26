@@ -72,6 +72,9 @@
     <ClInclude Include="ImageDrawable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HeadTop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CanadianExperience.cpp">
@@ -120,6 +123,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ImageDrawable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadTop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

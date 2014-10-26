@@ -10,15 +10,14 @@
 
 #include "Drawable.h"
 
-
 /**
 * \brief Draws an image
 */ 
 class CImageDrawable : public CDrawable
 {
 public:
-	CImageDrawable(const std::wstring &name, const std::wstring &filename);
 	CImageDrawable();
+	CImageDrawable(const std::wstring &name, const std::wstring &filename);
 	virtual ~CImageDrawable();
 	void Draw(Gdiplus::Graphics *graphics);
 	bool HitTest(Gdiplus::Point pos);
