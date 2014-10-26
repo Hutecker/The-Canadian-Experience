@@ -43,7 +43,7 @@ public:
 
 	/** \brief The Color
 	* \param color our new color */
-	void Setcolor(Gdiplus::Color color) { mColor = color; }
+	void SetColor(Gdiplus::Color color) { mColor = color; }
 
 	/** \brief The Points
 	* \returns The Points */

@@ -44,6 +44,53 @@ public:
 	void Draw(Gdiplus::Graphics *graphics);
 	void AddActor(std::shared_ptr<CActor> actor);
 
+
+	/** \brief Contains iterator class for iterating through actors in picture **/
+	class Iter
+	{
+	public:
+		/** /breif Constructor
+		*\param picture The collection we are iterating over
+		*\param pos the index
+		**/
+		Iter(CPicture *picture, int pos) : mPicture(picture), mPos(pos) {}
+
+		/** /breif Test for end of iterator
+		* \param other the thing we are comparing to
+		*\returns True if this position equals not equal to the other position*/
+		bool operator != (const Iter &other) const
+		{
+			return mPos != other.mPos;
+		}
+
+		/** /breif Get value at current position
+		*\returns Value at mPos in teh collection */
+		std::shared_ptr<CActor> operator *() const { return mPicture->mActors[mPos]; }
+
+		/** /breif Increment the iterator
+		*\returns Refrence to this iterator */
+		const Iter& operator++()
+		{
+			mPos++;
+			return *this;
+		}
+
+	private:
+		CPicture *mPicture;   ///< Collection we are iterating over
+		int mPos;             ///< Position in the collection
+	};
+
+	/** \brief Get the begigning of the picture items collection
+	* \returns iterater at first element
+	**/
+	Iter begin() { return Iter(this, 0); }
+
+	/** /brief Get the end of the picture items collection
+	* \returns  iterater one past last element
+	**/
+	Iter end() { return Iter(this, mActors.size()); }
+
+
 private:
 	/// The picture size
 	Gdiplus::Size mSize = Gdiplus::Size(800, 600);

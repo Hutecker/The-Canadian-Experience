@@ -10,11 +10,18 @@
 
 using namespace Gdiplus;
 
+
+/**
+ * \brief constructor
+ */
 CPicture::CPicture()
 {
 }
 
 
+/**
+ * \brief destructor
+ */
 CPicture::~CPicture()
 {
 }
@@ -54,26 +61,10 @@ void CPicture::UpdateObservers()
 */
 void CPicture::Draw(Gdiplus::Graphics *graphics)
 {
-	Pen pen(Color(0, 128, 0), 1);
-	graphics->DrawRectangle(&pen, 250, 150, 250, 100);
-
-	FontFamily fontFamily(L"Arial");
-	Gdiplus::Font font(&fontFamily, 16);
-
-	SolidBrush brush(Color(0, 0, 0));
-	graphics->DrawString(L"Welcome to Canada!",  // String to draw
-		-1,         // String length, -1 means it figures it out on its own
-		&font,      // The font to use
-		PointF(275, 170),   // Where to draw
-		&brush);    // The brush to draw the text with
-
-	CString time = CTime::GetCurrentTime().Format("%H:%M:%S");
-	graphics->DrawString(time,  // String to draw
-		-1,         // String length, -1 means it figures it out on its own
-		&font,      // The font to use
-		PointF(325, 200),   // Where to draw
-		&brush);    // The brush to draw the text with
-
+	for (auto actor : mActors)
+	{
+		actor->Draw(graphics);
+	}
 }
 
 

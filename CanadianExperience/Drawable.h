@@ -10,6 +10,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 class CActor;
 
@@ -57,10 +58,17 @@ public:
 	* \returns The drawable name */
 	std::wstring GetName() const { return mName; }
 
+	/** \brief Set the parent
+	* \param parent the nodes parent*/
+	void SetParent(CDrawable* parent) { mParent = parent; }
+
+	/** \brief Get the parent
+	* \returns the parent*/
+	CDrawable* GetParent() const { return mParent; }
+
 protected:
 	CDrawable(const std::wstring &name);
 	Gdiplus::Point RotatePoint(Gdiplus::Point point, double angle);
-
 
 	/// The actual postion in the drawing
 	Gdiplus::Point mPlacedPosition = Gdiplus::Point(0, 0);
@@ -80,4 +88,10 @@ private:
 
 	/// The actor using this drawable
 	CActor *mActor = nullptr;
+
+	/// Contains this nodes children
+	std::vector<std::shared_ptr<CDrawable> > mChildren;
+	 
+	/// the drawables parent
+	CDrawable* mParent;
 };

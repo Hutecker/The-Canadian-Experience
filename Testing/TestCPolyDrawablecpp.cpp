@@ -26,7 +26,7 @@ namespace Testing
 			Assert::IsTrue(polyDrawable.GetColor().GetG() == black.GetG());
 
 			Gdiplus::Color test(1, 1, 1);
-			polyDrawable.Setcolor(test);
+			polyDrawable.SetColor(test);
 
 			Assert::IsTrue(polyDrawable.GetColor().GetA() == test.GetA());
 			Assert::IsTrue(polyDrawable.GetColor().GetB() == test.GetB());

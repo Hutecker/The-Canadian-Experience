@@ -9,6 +9,8 @@
 #pragma once
 
 #include "PictureObserver.h"
+#include "Actor.h"
+#include "Drawable.h"
 
 class CMainFrame;
 
@@ -41,6 +43,12 @@ public:
 private:
 	/// The main frame window that uses this view
 	CMainFrame  *mMainFrame = nullptr;
+	/// the actor we have selected
+	std::shared_ptr<CActor> mSelectedActor;
+	/// the drawable that is selected
+	std::shared_ptr<CDrawable> mSelectedDrawable;
+	/// The last mouse position
+	Gdiplus::Point mLastMouse = Gdiplus::Point(0, 0);
 };
 
 
