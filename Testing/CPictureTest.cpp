@@ -67,5 +67,13 @@ namespace Testing
 			Assert::IsFalse(iter1 != iter2);
 		}
 
+		TEST_METHOD(TestCPictureGetTimeline)
+		{
+			CPicture picture;
+
+			CTimeline *timeline = picture.GetTimeline();
+			Assert::IsNotNull(timeline);
+		}
+
 	};
 }

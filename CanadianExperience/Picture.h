@@ -11,6 +11,7 @@
 #include <vector>
 #include "PictureObserver.h"
 #include "Actor.h"
+#include "Timeline.h"
 
 using namespace Gdiplus;
 
@@ -90,6 +91,10 @@ public:
 	**/
 	Iter end() { return Iter(this, mActors.size()); }
 
+	/** \brief Get a pointer to the Timeline object
+	* \returns Pointer to the Timeline object
+	*/
+	CTimeline *GetTimeline() { return &mTimeline; }
 
 private:
 	/// The picture size
@@ -98,5 +103,7 @@ private:
 	std::vector<CPictureObserver *> mObservers;
 	///The actors
 	std::vector<std::shared_ptr<CActor> > mActors;
+	/// The animation timeline
+	CTimeline mTimeline;
 };
 

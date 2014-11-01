@@ -63,7 +63,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>StdAfx;PictureObserver;Picture;Actor;Drawable;ImageDrawable;PolyDrawable;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>StdAfx;PictureObserver;Picture;Actor;Drawable;ImageDrawable;PolyDrawable;Timeline;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -91,7 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CImageDrawableTest.cpp" />
-    <ClCompile Include="EmptyTest.cpp" />
+    <ClCompile Include="CTimelineTest.cpp" />
     <ClCompile Include="CPictureTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -102,6 +102,7 @@
     <ClCompile Include="TestCActor.cpp" />
     <ClCompile Include="TestCDrawable.cpp" />
     <ClCompile Include="TestCPolyDrawablecpp.cpp" />
+    <ClCompile Include="UnitTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
