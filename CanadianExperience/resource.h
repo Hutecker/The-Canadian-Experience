@@ -13,6 +13,8 @@
 #define IDB_BITMAP1                     311
 #define IDB_HAROLD                      311
 #define IDC_NUMFRAMES                   1000
+#define IDC_EDIT2                       1001
+#define IDC_FRAMERATE                   1001
 #define ID_FILE_TEST                    32771
 #define ID_EDIT_MOVE                    32772
 #define ID_EDIT_ROTATE                  32773
@@ -27,7 +29,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        313
 #define _APS_NEXT_COMMAND_VALUE         32781
-#define _APS_NEXT_CONTROL_VALUE         1001
+#define _APS_NEXT_CONTROL_VALUE         1002
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

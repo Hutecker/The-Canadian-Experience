@@ -14,6 +14,7 @@ IMPLEMENT_DYNAMIC(CTimelineDlg, CDialog)
 CTimelineDlg::CTimelineDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(CTimelineDlg::IDD, pParent)
 	, mNumFrames(0)
+	, mFrameRate(0)
 {
 
 }
@@ -27,6 +28,8 @@ void CTimelineDlg::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_NUMFRAMES, mNumFrames);
 	DDV_MinMaxInt(pDX, mNumFrames, 10, 10000);
+	DDX_Text(pDX, IDC_FRAMERATE, mFrameRate);
+	DDV_MinMaxInt(pDX, mFrameRate, 1, 60);
 }
 
 

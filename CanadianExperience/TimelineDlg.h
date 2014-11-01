@@ -23,6 +23,7 @@ public:
 	{
 		mTimeline = timeline;
 		mNumFrames = mTimeline->GetNumFrames();
+		mFrameRate = mTimeline->GetFrameRate();
 	}
 
 	/** \brief Transfer dialog values to the Timeline object
@@ -30,6 +31,7 @@ public:
 	void CTimelineDlg::Take()
 	{
 		mTimeline->SetNumFrames(mNumFrames);
+		mTimeline->SetFrameRate(mFrameRate);
 	}
 
 protected:
@@ -41,4 +43,5 @@ private:
 	int mNumFrames;
 	/// The timeline we are editing
 	CTimeline *mTimeline = nullptr;
+	int mFrameRate;
 };

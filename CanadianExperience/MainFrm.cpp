@@ -269,5 +269,6 @@ void CMainFrame::OnEditTimelineproperties()
 	if (dlg.DoModal() == IDOK)
 	{
 		dlg.Take();
+		mPicture->UpdateObservers();
 	}
 }

@@ -33,6 +33,8 @@ protected:
 private:
 	/// The main frame window that uses this view
 	CMainFrame  *mMainFrame = nullptr;
+	/// Bitmap image for the pointer
+	std::unique_ptr<Gdiplus::Bitmap> mPointer;
 
 protected:
 	virtual void OnDraw(CDC* pDC);      // overridden to draw this view
@@ -44,6 +46,7 @@ public:
     afx_msg BOOL OnEraseBkgnd(CDC* pDC);
     afx_msg void OnEditSetkeyframe();
     afx_msg void OnEditDeletekeyframe();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
 
 
