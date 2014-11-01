@@ -57,7 +57,7 @@ void CPicture::UpdateObservers()
 }
 
 /** \brief Draw this picture on a device context
-* \param dc The device context to draw on
+* \param graphics The device context to draw on
 */
 void CPicture::Draw(Gdiplus::Graphics *graphics)
 {

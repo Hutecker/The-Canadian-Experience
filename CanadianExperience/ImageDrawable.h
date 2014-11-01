@@ -23,13 +23,13 @@ public:
 	bool HitTest(Gdiplus::Point pos);
 
 	/**
-	* /brief gets the center point
-	* /returns the center point
+	* \brief gets the center point
+	* \returns the center point
 	*/
 	Gdiplus::Point GetCenter() { return mCenter; }
 	/**
-	* /brief sets the center point
-	* /param point the point you want set
+	* \brief sets the center point
+	* \param point the point you want set
 	*/
 	void SetCenter(Gdiplus::Point point) { mCenter = point; }
 

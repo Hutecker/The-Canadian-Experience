@@ -75,6 +75,9 @@
     <ClInclude Include="HeadTop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HelgaFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CanadianExperience.cpp">
@@ -126,6 +129,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HeadTop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HelgaFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

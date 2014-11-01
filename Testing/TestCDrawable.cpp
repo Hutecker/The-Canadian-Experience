@@ -6,9 +6,16 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace Testing
 {
+	/**
+	* \brief Mock class for abstract base class
+	*/
 	class CDrawableMock : public CDrawable
 	{
 	public:
+		/**
+		* \brief constructor
+		* \param name the objects name
+		*/
 		CDrawableMock(const std::wstring &name) : CDrawable(name) {}
 
 		virtual void Draw(Gdiplus::Graphics *graphics) override {}

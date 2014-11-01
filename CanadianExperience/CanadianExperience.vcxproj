@@ -104,6 +104,7 @@
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="HaroldFactory.h" />
     <ClInclude Include="HeadTop.h" />
+    <ClInclude Include="HelgaFactory.h" />
     <ClInclude Include="ImageDrawable.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="DoubleBufferDC.h" />
@@ -126,6 +127,7 @@
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="HaroldFactory.cpp" />
     <ClCompile Include="HeadTop.cpp" />
+    <ClCompile Include="HelgaFactory.cpp" />
     <ClCompile Include="ImageDrawable.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Picture.cpp" />

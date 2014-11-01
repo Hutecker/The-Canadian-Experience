@@ -8,22 +8,38 @@ using namespace std;
 
 namespace Testing
 {
+	/**
+	* \brief Mock class for abstract base class
+	*/
 	class CPictureObserverMock : public CPictureObserver
 	{
 	public:
+		/**
+		* \brief constructor
+		*/
 		CPictureObserverMock() : CPictureObserver() {}
+		///whether we updated or not
 		bool mUpdated = false;
+		///our picture
 		std::shared_ptr<CPicture> mPicture;
 		virtual void UpdateObserver() override { mUpdated = true; }
+		/**
+		* \brief sets the picture
+		* \param picture our picture
+		*/
 		void SetPicture(std::shared_ptr<CPicture> picture) 
 		{
 			mPicture = picture;
 			mPicture->AddObserver(this);
 		}
+		/**
+		* \brief gets our picture
+		* \returns our picture
+		*/
 		std::shared_ptr<CPicture> GetPicture() { return mPicture; }
 	};
 
-	TEST_CLASS(CPictureObserver)
+	TEST_CLASS(CPictureObserverTest)
 	{
 	public:
 		

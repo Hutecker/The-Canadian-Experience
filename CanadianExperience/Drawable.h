@@ -31,11 +31,24 @@ public:
 	void operator=(const CDrawable &) = delete;
 
 	void SetActor(CActor *actor);
+
+	/**
+	* \brief draws our object
+	* \param graphics our graphics context
+	*/
 	virtual void Draw(Gdiplus::Graphics *graphics) = 0;
+
 	void Place(Gdiplus::Point offset, double rotate);
+
 	void AddChild(std::shared_ptr<CDrawable> child);
+
 	virtual bool HitTest(Gdiplus::Point pos) = 0;
+	/**
+	* \brief tells us if the actor is moveable
+	* \returns false unles its the top head
+	*/
 	virtual bool IsMovable() { return false; }
+
 	void Move(Gdiplus::Point delta);
 
 	/** \brief Set the drawable position

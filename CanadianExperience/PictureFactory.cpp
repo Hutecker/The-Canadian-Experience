@@ -7,6 +7,7 @@
 #include "stdafx.h"
 #include "PictureFactory.h"
 #include "HaroldFactory.h"
+#include "HelgaFactory.h"
 #include "ImageDrawable.h"
 
 using namespace std;
@@ -46,10 +47,18 @@ std::shared_ptr<CPicture> CPictureFactory::Create()
 	CHaroldFactory factory;
 	auto harold = factory.Create();
 
+	// Create and add Helga
+	CHelgaFactory factory1;
+	auto helga = factory1.Create();
+
 	// This is where Harold will start out.
 	harold->SetPosition(Point(400, 500));
 
+	// This is where Helga will start out.
+	helga->SetPosition(Point(200, 500));
+
 	picture->AddActor(harold);
+	picture->AddActor(helga);
 
 	return picture;
 }
