@@ -60,6 +60,8 @@ BEGIN_MESSAGE_MAP(CViewTimeline, CScrollView)
     ON_COMMAND(ID_EDIT_SETKEYFRAME, &CViewTimeline::OnEditSetkeyframe)
     ON_COMMAND(ID_EDIT_DELETEKEYFRAME, &CViewTimeline::OnEditDeletekeyframe)
 	ON_WM_LBUTTONDOWN()
+	ON_WM_MOUSEMOVE()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 
@@ -169,8 +171,72 @@ BOOL CViewTimeline::OnEraseBkgnd(CDC* pDC)
  */
  void CViewTimeline::OnLButtonDown(UINT nFlags, CPoint point)
  {
-	 GetPicture()->GetTimeline()->SetCurrentTime(5);
-	 GetPicture()->UpdateObservers();
+	 // Convert mouse coordinates to logical coordinates
+	 CClientDC dc(this);
+	 OnPrepareDC(&dc);
+	 dc.DPtoLP(&point);
+
+	 int x = point.x;
+
+	 // Get the timeline
+	 CTimeline *timeline = GetPicture()->GetTimeline();
+	 int pointerX = (int)(timeline->GetCurrentTime() * timeline->GetFrameRate() * TickSpacing + BorderLeft);
+
+	 mMovingPointer = x >= pointerX - (int)mPointer->GetWidth() / 2 && x <= pointerX + (int)mPointer->GetWidth() / 2;
 
 	 __super::OnLButtonDown(nFlags, point);
+ }
+
+/**
+ * \brief Determines what happens when we move the mouse
+ * \param nFlags flags
+ * \param point location of mouse
+ */
+ void CViewTimeline::OnMouseMove(UINT nFlags, CPoint point)
+ {
+	 // Convert mouse coordinates to logical coordinates
+	 CClientDC dc(this);
+	 OnPrepareDC(&dc);
+	 dc.DPtoLP(&point);
+
+	 int x = point.x;
+
+	 if (mMovingPointer)
+	 {
+		 CTimeline *timeline = GetPicture()->GetTimeline();
+
+		 double pointerX = (static_cast<double>(x) / static_cast<double>(timeline->GetFrameRate()))
+			 / static_cast<double>(TickSpacing);
+		
+		 if (pointerX >= (timeline->GetNumFrames()/timeline->GetFrameRate()))
+		 {
+			 GetPicture()->SetAnimationTime(timeline->GetNumFrames() / timeline->GetFrameRate());
+			 GetPicture()->UpdateObservers();
+		 }
+		 else if (pointerX <= 0)
+		 {
+			 GetPicture()->SetAnimationTime(0);
+			 GetPicture()->UpdateObservers();
+		 }
+		 else
+		 {
+			 GetPicture()->SetAnimationTime(pointerX);
+			 GetPicture()->UpdateObservers();
+		 }
+	 }
+
+	 __super::OnMouseMove(nFlags, point);
+ }
+
+
+/**
+ * \brief what to do on left mouse release
+ * \param nFlags flags
+ * \param point point of our mouse
+ */
+ void CViewTimeline::OnLButtonUp(UINT nFlags, CPoint point)
+ {
+	 mMovingPointer = false;
+
+	 __super::OnLButtonUp(nFlags, point);
  }

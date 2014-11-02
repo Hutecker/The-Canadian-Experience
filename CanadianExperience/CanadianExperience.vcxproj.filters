@@ -84,6 +84,12 @@
     <ClInclude Include="TimelineDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AnimChannel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimChannelAngle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CanadianExperience.cpp">
@@ -144,6 +150,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TimelineDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimChannel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimChannelAngle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -24,7 +24,11 @@ public:
 	void SetMainFrame(CMainFrame *mainFrame) { mMainFrame = mainFrame; }
 	/** \brief Force an update of this window when the picture changes.
 	*/
-	void CViewTimeline::UpdateObserver(){ Invalidate(); }
+	void CViewTimeline::UpdateObserver()
+	{
+		Invalidate();
+		UpdateWindow();
+	}
 
 protected:
 	CViewTimeline();           // protected constructor used by dynamic creation
@@ -35,6 +39,8 @@ private:
 	CMainFrame  *mMainFrame = nullptr;
 	/// Bitmap image for the pointer
 	std::unique_ptr<Gdiplus::Bitmap> mPointer;
+	/// Flag to indicate we are moving the pointer
+	bool mMovingPointer = false;
 
 protected:
 	virtual void OnDraw(CDC* pDC);      // overridden to draw this view
@@ -47,6 +53,8 @@ public:
     afx_msg void OnEditSetkeyframe();
     afx_msg void OnEditDeletekeyframe();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 };
 
 

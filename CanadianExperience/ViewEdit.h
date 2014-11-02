@@ -27,7 +27,11 @@ public:
 	void SetMainFrame(CMainFrame *mainFrame) { mMainFrame = mainFrame; }
 	/** \brief Force an update of this window when the picture changes.
 	*/
-	void CViewEdit::UpdateObserver(){ Invalidate(); }
+	void CViewEdit::UpdateObserver()
+	{ 
+		Invalidate(); 
+		UpdateWindow();
+	}
 
 protected:
 	virtual void OnDraw(CDC* pDC);      // overridden to draw this view

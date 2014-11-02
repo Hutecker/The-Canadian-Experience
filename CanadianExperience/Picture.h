@@ -96,6 +96,18 @@ public:
 	*/
 	CTimeline *GetTimeline() { return &mTimeline; }
 
+	/** \brief Set the current animation time
+	*
+	* This forces the animation of all
+	* objects to the current animation location.
+	* \param time The new time.
+	*/
+	void CPicture::SetAnimationTime(double time)
+	{
+		mTimeline.SetCurrentTime(time);
+		UpdateObservers();
+	}
+
 private:
 	/// The picture size
 	Gdiplus::Size mSize = Gdiplus::Size(800, 600);
