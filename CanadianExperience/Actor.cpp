@@ -6,6 +6,7 @@
 
 #include "stdafx.h"
 #include "Actor.h"
+#include "Picture.h"
 
 using namespace Gdiplus;
 
@@ -82,4 +83,44 @@ void CActor::AddDrawable(std::shared_ptr<CDrawable> drawable)
 {
 	mDrawablesInOrder.push_back(drawable);
 	drawable->SetActor(this);
+}
+
+/** \brief Set the picture link for this actor.
+*
+* This is telling the actor what
+* picture to use.
+*
+* Also tells all child drawables what the timeline is.
+* \param picture The picture we are using.
+*/
+void CActor::SetPicture(CPicture *picture)
+{
+	mPicture = picture;
+
+	// Set the timeline for all drawables. This links the channels to
+	// the timeline system.
+	for (auto drawable : mDrawablesInOrder)
+	{
+		drawable->SetTimeline(mPicture->GetTimeline());
+	}
+}
+
+/** \brief Set a keyframe on an actor.
+*/
+void CActor::SetKeyframe()
+{
+	for (auto drawable : mDrawablesInOrder)
+	{
+		drawable->SetKeyframe();
+	}
+}
+
+/** brief Get a keyframe for an actor.
+*/
+void CActor::GetKeyframe()
+{
+	for (auto drawable : mDrawablesInOrder)
+	{
+		drawable->GetKeyframe();
+	}
 }

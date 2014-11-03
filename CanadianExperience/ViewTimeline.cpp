@@ -154,7 +154,10 @@ BOOL CViewTimeline::OnEraseBkgnd(CDC* pDC)
 /** \brief Handle the Edit>Set Keyframe menu option */
  void CViewTimeline::OnEditSetkeyframe()
  {
-     // TODO: Add your command handler code here
+	 for (auto actor : *GetPicture())
+	 {
+		 actor->SetKeyframe();
+	 }
  }
 
 

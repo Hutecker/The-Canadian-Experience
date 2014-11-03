@@ -9,11 +9,18 @@
 
 using namespace std;
 
+
+/**
+ * \brief constructor
+ */
 CActorFactory::CActorFactory()
 {
 }
 
 
+/**
+ * \brief destructor
+ */
 CActorFactory::~CActorFactory()
 {
 }

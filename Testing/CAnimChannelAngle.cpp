@@ -14,8 +14,6 @@ namespace Testing
 		TEST_METHOD(GetterandSetterTest)
 		{
 			CAnimChannelAngle channel;
-			channel.SetName("Test");
-			channel::SetName("Test");
 		}
 
 	};

@@ -11,9 +11,10 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "AnimChannelAngle.h"
 
 class CActor;
-
+class CTimeline;
 
 /**
 * \brief Abstract base class for drawable elements of our picture
@@ -79,6 +80,15 @@ public:
 	* \returns the parent*/
 	CDrawable* GetParent() const { return mParent; }
 
+	virtual void SetTimeline(CTimeline *timeline);
+
+	/** \brief The angle animation channel
+	* \returns Pointer to animation channel */
+	CAnimChannelAngle *GetAngleChannel() { return &mChannel; }
+
+	virtual void SetKeyframe();
+	virtual void GetKeyframe();
+
 protected:
 	CDrawable(const std::wstring &name);
 	Gdiplus::Point RotatePoint(Gdiplus::Point point, double angle);
@@ -107,4 +117,7 @@ private:
 	 
 	/// the drawables parent
 	CDrawable* mParent;
+
+	/// The animation channel for animating the angle of this drawable
+	CAnimChannelAngle mChannel;
 };

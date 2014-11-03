@@ -29,54 +29,46 @@ public:
 	double GetAngle() { return mAngle; }
 
 	/** \brief Class that represents a keyframe */
-	class KeyFrameAngle : public Keyframe
+	class KeyframeAngle : public Keyframe
 	{
 	public:
+
+		/** \brief Default constructor disabled */
+		KeyframeAngle() = delete;
+		/** \brief Copy constructor disabled */
+		KeyframeAngle(const KeyframeAngle &) = delete;
+		/** \brief Assignment operator disabled */
+		void operator=(const KeyframeAngle &) = delete;
+
+		/** \brief Constructor
+		* \param channel The channel we are for
+		* \param angle The angle for the keyframe */
+		KeyframeAngle(CAnimChannelAngle *channel, double angle) :
+			Keyframe(channel), mChannel(channel), mAngle(angle) {}
+
 		/**
 		* \brief get the angle
 		* \returns the angle
 		*/
 		double GetAngle() { return mAngle; }
 
-		/**
-		* \brief keyframe the angle
-		* \param channel the angle channel
-		* \param angle the current angle
-		*/
-		void KeyframeAngle(CAnimChannelAngle channel, double angle)
-		{
+		/** \brief Use this keyframe as keyframe 1 */
+		virtual void UseAs1() override { mChannel->mKeyframe1 = this; }
 
-		}
+		/** \brief Use this keyframe as keyfraem 2 */
+		virtual void UseAs2() override { mChannel->mKeyframe2 = this; }
 
-		/**
-		* \brief use as keyframe 1
-		*/
-		virtual void UseAs1()
-		{
+		/** \brief Use this keyframe as the angle */
+		virtual void UseOnly() override { mChannel->mAngle = mAngle; }
 
-		}
-
-		/**
-		* \brief use as keyframe 2
-		*/
-		virtual void UseAs2()
-		{
-
-		}
-
-		/**
-		* \brief use as only keyframe
-		*/
-		virtual void UseOnly()
-		{
-
-		}
 	private:
 		/// the angle
 		double mAngle;
+		/// The channel this keyframe is associated with
+		CAnimChannelAngle *mChannel;
 	};
 
-	void SetKeyframe(double angle);
+void SetKeyframe(double angle);
 
 protected:
 	void Tween(double t);
@@ -84,5 +76,9 @@ protected:
 private:
 	/// the angle
 	double mAngle = 0;
+	/// The first angle keyframe
+	KeyframeAngle *mKeyframe1 = nullptr;
+	/// The second angle keyframe
+	KeyframeAngle *mKeyframe2 = nullptr;
 };
 

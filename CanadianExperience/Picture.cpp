@@ -77,3 +77,20 @@ void CPicture::AddActor(std::shared_ptr<CActor> actor)
 	mActors.push_back(actor);
 	actor->SetPicture(this);
 }
+
+/** \brief Set the current animation time
+*
+* This forces the animation of all
+* objects to the current animation location.
+* \param time The new time.
+*/
+void CPicture::SetAnimationTime(double time)
+{
+	mTimeline.SetCurrentTime(time);
+	UpdateObservers();
+
+	for (auto actor : mActors)
+	{
+		actor->GetKeyframe();
+	}
+}

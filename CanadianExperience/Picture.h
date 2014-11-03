@@ -96,17 +96,8 @@ public:
 	*/
 	CTimeline *GetTimeline() { return &mTimeline; }
 
-	/** \brief Set the current animation time
-	*
-	* This forces the animation of all
-	* objects to the current animation location.
-	* \param time The new time.
-	*/
-	void CPicture::SetAnimationTime(double time)
-	{
-		mTimeline.SetCurrentTime(time);
-		UpdateObservers();
-	}
+	void CPicture::SetAnimationTime(double time);
+
 
 private:
 	/// The picture size

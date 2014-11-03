@@ -74,9 +74,11 @@ public:
 	* \returns picture the picture this actor points to */
 	CPicture* GetPicture() { return mPicture; }
 
-	/** \brief set the picture
-	* \param picture the picture you want to set */
-	void SetPicture(CPicture* picture) { mPicture = picture; }
+	void SetPicture(CPicture* picture);
+
+	virtual void SetKeyframe();
+
+	virtual void GetKeyframe();
 
 private:
 	/// actors name

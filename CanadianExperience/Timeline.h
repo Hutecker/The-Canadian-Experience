@@ -8,6 +8,9 @@
 
 #pragma once
 
+#include <vector>
+#include "AnimChannel.h"
+
 /** \brief This class implements a timeline that manages the animation
 *
 * A timeline consists of animation channels for different parts of our
@@ -48,10 +51,7 @@ public:
 	*/
 	double GetCurrentTime() const { return mCurrentTime; }
 
-	/** \brief Set the current time
-	* \param currentTime new current animation time in seconds
-	*/
-	void SetCurrentTime(double currentTime) { mCurrentTime = currentTime; }
+	void SetCurrentTime(double currentTime);
 
 	/*! \brief Get the current frame.
 	*
@@ -65,6 +65,15 @@ public:
 	*/
 	double GetDuration() const { return static_cast<double>(mNumFrames) / mFrameRate; }
 
+	/*! \brief add a channel to mchannels
+	* \param channel the channel we are adding.
+	*/
+	void AddChannel(CAnimChannel* channel)
+	{
+		mChannels.push_back(channel);
+		channel->SetTimeline(this);
+	}
+
 private:
 	/// Number of frames in the animation
 	int mNumFrames = 300;
@@ -72,5 +81,7 @@ private:
 	int mFrameRate = 30;
 	/// the current time
 	double mCurrentTime = 0;
+	/// List of all animation channels
+	std::vector<CAnimChannel *> mChannels;
 };
 

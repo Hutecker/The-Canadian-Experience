@@ -10,6 +10,9 @@
 
 #include <string>
 #include <memory>
+#include <vector>
+
+class CTimeline;
 
 /** \brief Base class for animation channels
 *
@@ -54,57 +57,74 @@ public:
 		void SetFrame(int frame) { mFrame = frame; }
 
 		/**
-		* \brief keyframe the channel
-		* \param channel the animation channel
-		*/
-		void KeyFrame(CAnimChannel channel)
-		{
-
-		}
-
-		/**
 		* \brief use as keyframe 1
 		*/
 		virtual void UseAs1()
-		{
-
-		}
+		{}
 
 		/**
 		* \brief use as keyframe 2
 		*/
 		virtual void UseAs2()
-		{
-
-		}
+		{}
 
 		/**
 		* \brief use as only keyframe
 		*/
 		virtual void UseOnly()
-		{
-
-		}
+		{}
 
 	protected:
 		/// our frame
 		int mFrame;
+
+		/** \brief Constructor
+		* \param channel Channel we are associated with */
+		Keyframe(CAnimChannel *channel) : mChannel(channel) {}
+		/** \brief Default constructor disabled */
+		Keyframe() = delete;
+		/** \brief Copy constructor disabled */
+		Keyframe(const Keyframe &) = delete;
+		/** \brief Assignment operator disabled */
+		void operator=(const Keyframe &) = delete;
+
 	private:
+		/// The channel this keyframe is associated with
+		CAnimChannel *mChannel;
 	};
 
-	bool IsValid();
+	/** \brief Is the channel valid, meaning has keyframes?
+	* \returns true if the channel is valid. */
+	bool IsValid() { return mKeyframe1 >= 0 || mKeyframe2 >= 0; }
+
 	void SetFrame(int currFrame);
+
+	/**
+	* \brief get the timeline
+	* \returns the timeline
+	*/
+	CTimeline* GetTimeline() { return mTimeline; }
+
+	/**
+	* \brief get the timeline
+	* \returns the timeline
+	*/
+	void SetTimeline(CTimeline *timeline) { mTimeline = timeline; }
 
 protected:
 	void InsertKeyframe(std::shared_ptr<Keyframe> keyframe);
-	void Tween(double t);
+	virtual void Tween(double t);
 
 private:
 	/// animation name
 	std::wstring mName;
 	/// keyframe 1
-	int mKeyFrame1 = -1;
+	int mKeyframe1 = -1;
 	/// keyframe 2
-	int mKeyFrame2 = -1;
+	int mKeyframe2 = -1;
+	/// The timeline object
+	CTimeline *mTimeline = nullptr;
+	/// The collection of keyframes for this channel
+	std::vector<std::shared_ptr<Keyframe>> mKeyframes;
 };
 
