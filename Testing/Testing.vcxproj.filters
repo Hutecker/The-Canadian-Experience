@@ -53,7 +53,7 @@
     <ClCompile Include="CTimelineTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CAnimChannelAngle.cpp">
+    <ClCompile Include="CAnimChannelAngleTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -164,7 +164,12 @@ BOOL CViewTimeline::OnEraseBkgnd(CDC* pDC)
  /** \brief Handle the Edit>Delete Keyframe menu option */
  void CViewTimeline::OnEditDeletekeyframe()
  {
-     // TODO: Add your command handler code here
+	 CTimeline *timeline = GetPicture()->GetTimeline();
+	 int currentFrame = timeline->GetCurrentFrame();
+	 for (auto channel : timeline->GetChannels())
+	 {
+		 channel->DeleteFrame(currentFrame);
+	 }
  }
 
 

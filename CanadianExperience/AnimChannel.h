@@ -99,6 +99,8 @@ public:
 
 	void SetFrame(int currFrame);
 
+	void DeleteFrame(int currentFrame);
+
 	/**
 	* \brief get the timeline
 	* \returns the timeline

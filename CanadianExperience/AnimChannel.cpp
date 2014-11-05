@@ -162,3 +162,13 @@ void CAnimChannel::Tween(double t)
 {
 
 }
+
+
+/**
+ * \brief Delete a keyframe at the current frame
+ * \param currentFrame 
+ */
+void CAnimChannel::DeleteFrame(int currentFrame)
+{
+
+}

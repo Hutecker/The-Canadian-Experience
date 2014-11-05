@@ -9,6 +9,8 @@
 #pragma once
 
 #include "ImageDrawable.h"
+#include "AnimChannelPoint.h"
+#include "Timeline.h"
 
 /**
 * \brief draws harolds head
@@ -49,6 +51,10 @@ public:
 	*/
 	void SetSecondEye(Gdiplus::Point point) { mEye2 = point; }
 
+
+	virtual void SetKeyframe() override;
+	virtual void GetKeyframe() override;
+	virtual void SetTimeline(CTimeline *timeline) override;
 private:
 	/// first positions of the 1 eyebrow
 	Gdiplus::Point mEyeBrow11;
@@ -62,5 +68,7 @@ private:
 	Gdiplus::Point mEye1;
 	/// position of the second eye
 	Gdiplus::Point mEye2;
+	/// The animation channel for animating the point of this drawable
+	CAnimChannelPoint mPointChannel;
 };
 

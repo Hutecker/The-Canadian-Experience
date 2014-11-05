@@ -74,6 +74,12 @@ public:
 		channel->SetTimeline(this);
 	}
 
+	/**
+	* \brief get the animation channels
+	* \returns a vector of channels
+	*/
+	std::vector<CAnimChannel*> GetChannels() { return mChannels; }
+
 private:
 	/// Number of frames in the animation
 	int mNumFrames = 300;

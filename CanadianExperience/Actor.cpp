@@ -74,7 +74,6 @@ std::shared_ptr<CDrawable> CActor::HitTest(Gdiplus::Point pos)
 	return nullptr;
 }
 
-
 /**
 * \brief Add a drawable to this actor
 * \param drawable The drawable to add
@@ -103,6 +102,8 @@ void CActor::SetPicture(CPicture *picture)
 	{
 		drawable->SetTimeline(mPicture->GetTimeline());
 	}
+	mPointChannel.SetTimeline(mPicture->GetTimeline());
+	mPicture->GetTimeline()->AddChannel(&mPointChannel);
 }
 
 /** \brief Set a keyframe on an actor.
@@ -113,6 +114,7 @@ void CActor::SetKeyframe()
 	{
 		drawable->SetKeyframe();
 	}
+	mPointChannel.SetKeyframe(mPosition);
 }
 
 /** brief Get a keyframe for an actor.
@@ -123,4 +125,6 @@ void CActor::GetKeyframe()
 	{
 		drawable->GetKeyframe();
 	}
+	if (mPointChannel.IsValid())
+		mPosition = mPointChannel.GetPoint();
 }

@@ -8,11 +8,12 @@
 
 #pragma once
 
-#include "Drawable.h"
-
 #include <string>
 #include <memory>
 #include <vector>
+
+#include "Drawable.h"
+#include "AnimChannelPoint.h"
 
 class CPicture;
 
@@ -80,6 +81,12 @@ public:
 
 	virtual void GetKeyframe();
 
+	/**
+	* \brief gets the position channel
+	* \returns the animation channel for the point
+	*/
+	CAnimChannelPoint* GetPositionChannel() { return &mPointChannel; }
+
 private:
 	/// actors name
 	std::wstring mName;
@@ -95,4 +102,6 @@ private:
 	std::vector<std::shared_ptr<CDrawable>> mDrawablesInOrder;
 	/// The actors picture
 	CPicture *mPicture;
+	/// The animation channel for animating the point of this drawable
+	CAnimChannelPoint mPointChannel;
 };

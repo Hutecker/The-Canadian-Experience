@@ -7,6 +7,8 @@
 #include "stdafx.h"
 #include <memory>
 #include "HeadTop.h"
+#include "Actor.h"
+#include "Picture.h"
 
 using namespace Gdiplus;
 using namespace std;
@@ -45,7 +47,7 @@ CHeadTop::~CHeadTop()
  * \brief Draws the head
  * \param graphics the context of where we are drawing
  */
-void CHeadTop::Draw(Gdiplus::Graphics *graphics)
+void CHeadTop::Draw(Graphics *graphics)
 {
 	CImageDrawable::Draw(graphics);
 	Pen eyebrowPen(Color::Black, 2);
@@ -98,11 +100,38 @@ bool CHeadTop::IsMovable()
 * \param  p Point to transform
 * \returns Transformed point
 */
-Gdiplus::Point CHeadTop::TransformPoint(Gdiplus::Point p)
+Point CHeadTop::TransformPoint(Point p)
 {
 	// Make p relative to the image center
 	p = p - GetCenter();
 
 	// Rotate as needed and offset
 	return RotatePoint(p, mPlacedR) + mPlacedPosition;
+}
+
+
+/** Add the channels for this drawable to a timeline
+* \param timeline The timeline class.
+*/
+void CHeadTop::SetTimeline(CTimeline *timeline)
+{
+	CDrawable::SetTimeline(timeline);
+	timeline->AddChannel(&mPointChannel);
+}
+
+/** \brief Set the keyframe based on the current status.
+*/
+void CHeadTop::SetKeyframe()
+{
+	CDrawable::SetKeyframe();
+	mPointChannel.SetKeyframe(CDrawable::GetPosition());
+}
+
+/** \brief Get the current channel from the animation system.
+*/
+void CHeadTop::GetKeyframe()
+{
+	CDrawable::GetKeyframe();
+	if (mPointChannel.IsValid())
+		CDrawable::SetPosition(mPointChannel.GetPoint());
 }

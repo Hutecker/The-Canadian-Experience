@@ -24,7 +24,6 @@ CDrawable::~CDrawable()
 {
 }
 
-
 /**
 * \brief Set the actor using this drawable
 * \param actor Actor using this drawable
@@ -58,7 +57,6 @@ void CDrawable::Place(Gdiplus::Point offset, double rotate)
 	}
 }
 
-
 /**
 * \brief Add a child drawable to this drawable
 * \param child The child to add
@@ -69,7 +67,6 @@ void CDrawable::AddChild(std::shared_ptr<CDrawable> child)
 	child->SetParent(this);
 }
 
-
 /**
 * \brief Test to see if we clicked on this drawable
 * \param pos Position we clicked
@@ -79,7 +76,6 @@ bool CDrawable::HitTest(Gdiplus::Point pos)
 {
 	return false;
 }
-
 
 /**
 * \brief Move this drawable some amount
@@ -96,7 +92,6 @@ void CDrawable::Move(Gdiplus::Point delta)
 		mPosition = mPosition + delta;
 	}
 }
-
 
 /** \brief Rotate a point by a given angle.
 * \param point The point to rotate

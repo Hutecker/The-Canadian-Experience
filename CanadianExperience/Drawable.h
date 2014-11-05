@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 #include "AnimChannelAngle.h"
+#include "AnimChannelPoint.h"
 
 class CActor;
 class CTimeline;
@@ -32,6 +33,7 @@ public:
 	void operator=(const CDrawable &) = delete;
 
 	void SetActor(CActor *actor);
+	CActor * GetActor() { return mActor; }
 
 	/**
 	* \brief draws our object

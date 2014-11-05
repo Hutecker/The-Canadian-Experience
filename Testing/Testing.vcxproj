@@ -63,7 +63,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>StdAfx;PictureObserver;Picture;Actor;Drawable;ImageDrawable;PolyDrawable;Timeline;AnimChannelAngle;AnimChannel;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>StdAfx;PictureObserver;Picture;Actor;Drawable;ImageDrawable;PolyDrawable;Timeline;AnimChannelAngle;AnimChannel;AnimChannelPoint;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -90,7 +90,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CAnimChannelAngle.cpp" />
+    <ClCompile Include="CAnimChannelAngleTest.cpp" />
     <ClCompile Include="CImageDrawableTest.cpp" />
     <ClCompile Include="CTimelineTest.cpp" />
     <ClCompile Include="CPictureTest.cpp" />
