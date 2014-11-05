@@ -24,7 +24,7 @@ CTimeline::~CTimeline()
 }
 
 /** \brief Sets the current time
-*
+*	\param t the current time
 * Ensures all of the channels are
 * valid for that point in time.
 */

@@ -52,6 +52,7 @@ public:
 
 		/**
 		* \brief get the frame
+		* \param frame the frame we are setting
 		* \returns the frame
 		*/
 		void SetFrame(int frame) { mFrame = frame; }
@@ -109,6 +110,7 @@ public:
 
 	/**
 	* \brief get the timeline
+	* \param timeline a pointer to our timeline
 	* \returns the timeline
 	*/
 	void SetTimeline(CTimeline *timeline) { mTimeline = timeline; }

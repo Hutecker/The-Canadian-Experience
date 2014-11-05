@@ -42,7 +42,7 @@ public:
 
 		/** \brief Constructor
 		* \param channel The channel we are for
-		* \param angle The angle for the keyframe */
+		* \param point the point for the keyframe */
 		KeyframePoint(CAnimChannelPoint *channel, Gdiplus::Point point) :
 			Keyframe(channel), mChannel(channel), mPoint(point) {}
 

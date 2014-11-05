@@ -31,8 +31,7 @@ CAnimChannelPoint::~CAnimChannelPoint()
 *
 * This function allocates a new keyframe and sends it to
 * CAnimChannel, which will insert it into the collection of keyframes.
-* \param x x corrdinate
-* \param y y coordiante
+* \param point point to set
 */
 void CAnimChannelPoint::SetKeyframe(Gdiplus::Point point)
 {

@@ -1,18 +1,29 @@
+/**
+ * \file TimelineDlg.h
+ *
+ * \author Stephan Hutecker
+ *
+ * \brief Our timeline dialog
+ */
+
+
 #pragma once
 
 #include "Timeline.h"
 
-// CTimelineDlg dialog
-
+/** \brief Our timeline dialog */
 class CTimelineDlg : public CDialog
 {
 	DECLARE_DYNAMIC(CTimelineDlg)
 
 public:
+	/**
+	* \brief constructor
+	*/
 	CTimelineDlg(CWnd* pParent = NULL);   // standard constructor
 	virtual ~CTimelineDlg();
 
-// Dialog Data
+	// Dialog Data
 	enum { IDD = IDD_TIMELINEDLG };
 
 	/**
@@ -35,7 +46,11 @@ public:
 	}
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	/**
+	* \brief DDX/DDV support
+	* \param pDX a CDataExchange
+	*/
+	virtual void DoDataExchange(CDataExchange* pDX);   
 
 	DECLARE_MESSAGE_MAP()
 private:
@@ -43,5 +58,6 @@ private:
 	int mNumFrames;
 	/// The timeline we are editing
 	CTimeline *mTimeline = nullptr;
+	/// The frame rate of the animation
 	int mFrameRate;
 };

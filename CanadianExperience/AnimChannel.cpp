@@ -28,6 +28,8 @@ CAnimChannel::~CAnimChannel()
 
 /** \brief Ensure the keyframe indices are valid for the current time.
 *
+* \param currFrame The current frame the pointer is on
+*
 * The location pointed to by keyframe1 must be a time less than or
 * equal to the current time and the location pointed to by keyframe2
 * must be the next location and a location greater than the current
@@ -170,5 +172,38 @@ void CAnimChannel::Tween(double t)
  */
 void CAnimChannel::DeleteFrame(int currentFrame)
 {
+	int numberOfKeyFrames = mKeyframes.size();
 
+	for (auto keyframe : mKeyframes)
+	{
+		if (keyframe->GetFrame() == currentFrame)
+		{
+			/// Right of all keyframes
+			if (mKeyframe2 == -1 && mKeyframe1 == numberOfKeyFrames - 1)
+			{
+				auto loc = find(mKeyframes.begin(), mKeyframes.end(), keyframe);
+				if (loc != mKeyframes.end())
+				{
+					mKeyframes.erase(loc);
+				}
+
+				mKeyframe1 = mKeyframe1 - 1;
+				numberOfKeyFrames = mKeyframes.size();
+				break;
+			}
+			/// Between two keyframes
+			else if (mKeyframe2 != -1 && mKeyframe1 != -1)
+			{
+				auto loc = find(mKeyframes.begin(), mKeyframes.end(), keyframe);
+				if (loc != mKeyframes.end())
+				{
+					mKeyframes.erase(loc);
+				}
+
+				mKeyframe1 = mKeyframe1 - 1;
+				mKeyframe2 = mKeyframe2 - 1;
+				break;
+			}
+		}
+	}
 }
