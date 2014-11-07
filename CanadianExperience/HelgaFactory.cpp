@@ -35,7 +35,7 @@ CHelgaFactory::~CHelgaFactory()
 */
 std::shared_ptr<CActor> CHelgaFactory::Create()
 {
-	shared_ptr<CActor> actor = make_shared<CActor>(L"Harold");
+	shared_ptr<CActor> actor = make_shared<CActor>(L"Helga");
 
 	auto shirt = make_shared<CImageDrawable>(L"Shirt", L"images/dress.png");
 	shirt->SetCenter(Point(44, 138));
