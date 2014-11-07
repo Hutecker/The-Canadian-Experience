@@ -41,6 +41,12 @@ private:
 	std::unique_ptr<Gdiplus::Bitmap> mPointer;
 	/// Flag to indicate we are moving the pointer
 	bool mMovingPointer = false;
+	/// Flag to indicate the animation is currently playing
+	bool mIsPlaying = false;
+	/// Last time we read the timer
+	long long mLastTime;
+	/// Rate the timer updates
+	double mTimeFreq;
 
 protected:
 	virtual void OnDraw(CDC* pDC);      // overridden to draw this view
@@ -57,6 +63,8 @@ public:
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnFileSaveanimationas();
 	afx_msg void OnFileLoadanimation();
+	afx_msg void OnPlayPlayfrombeginning();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };
 
 

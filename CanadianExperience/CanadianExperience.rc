@@ -120,6 +120,12 @@ BEGIN
         MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
         MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
     END
+    POPUP "Play"
+    BEGIN
+        MENUITEM "Play ",                       ID_PLAY_PLAY
+        MENUITEM "Play From Beginning",         ID_PLAY_PLAYFROMBEGINNING
+        MENUITEM "Stop",                        ID_PLAY_STOP
+    END
     POPUP "&Help"
     BEGIN
         MENUITEM "&About The Canadian Experience...", ID_APP_ABOUT
