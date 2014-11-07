@@ -7,6 +7,7 @@
 #include "stdafx.h"
 #include "Timeline.h"
 
+using namespace xmlnode;
 
 /**
  * \brief Constructor
@@ -36,5 +37,28 @@ void CTimeline::SetCurrentTime(double t)
 	for (auto channel : mChannels)
 	{
 		channel->SetFrame(GetCurrentFrame());
+	}
+}
+
+/**
+* \brief Save the timeline animation to a file
+* \param filename File to save to.
+*/
+void CTimeline::Save(const std::wstring &filename)
+{
+	//
+	// Create an XML document
+	//
+	auto root = CXmlNode::CreateDocument(L"anim");
+
+
+
+	try
+	{
+		root->Save(filename);
+	}
+	catch (CXmlNode::Exception ex)
+	{
+		AfxMessageBox(ex.Message().c_str());
 	}
 }

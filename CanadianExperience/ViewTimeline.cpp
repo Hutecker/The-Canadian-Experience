@@ -62,6 +62,8 @@ BEGIN_MESSAGE_MAP(CViewTimeline, CScrollView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
+	ON_COMMAND(ID_FILE_SAVEANIMATIONAS, &CViewTimeline::OnFileSaveanimationas)
+	ON_COMMAND(ID_FILE_LOADANIMATION, &CViewTimeline::OnFileLoadanimation)
 END_MESSAGE_MAP()
 
 
@@ -247,4 +249,40 @@ BOOL CViewTimeline::OnEraseBkgnd(CDC* pDC)
 	 mMovingPointer = false;
 
 	 __super::OnLButtonUp(nFlags, point);
+ }
+
+ /**
+ * \brief Handle the File/Save Animation As menu option
+ */
+ void CViewTimeline::OnFileSaveanimationas()
+ {
+	 CFileDialog dlg(false,  // false = Save dialog box
+		 L".anim",           // Default file extension
+		 nullptr,            // Default file name (none)
+		 OFN_OVERWRITEPROMPT,      // Flags (none)
+		 L"Animation Files (*.anim)|*.anim|All Files (*.*)|*.*||");    // Filter 
+	 if (dlg.DoModal() != IDOK)
+		 return;
+
+	 wstring filename = dlg.GetPathName();
+	 auto picture = GetPicture();
+	 picture->GetTimeline()->Save(filename);
+ }
+
+
+ /**
+ * \brief Handle the File/Open Animation menu option
+ */
+ void CViewTimeline::OnFileLoadanimation()
+ {
+	 CFileDialog dlg(true,  // true = Open dialog box
+		 L".anim",           // Default file extension
+		 nullptr,            // Default file name (none)
+		 0,      // Flags (none)
+		 L"Animation Files (*.anim)|*.anim|All Files (*.*)|*.*||");    // Filter 
+	 if (dlg.DoModal() != IDOK)
+		 return;
+
+	 wstring filename = dlg.GetPathName();
+
  }

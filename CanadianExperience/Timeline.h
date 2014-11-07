@@ -10,6 +10,7 @@
 
 #include <vector>
 #include "AnimChannel.h"
+#include "XmlNode.h"
 
 /** \brief This class implements a timeline that manages the animation
 *
@@ -79,6 +80,8 @@ public:
 	* \returns a vector of channels
 	*/
 	std::vector<CAnimChannel*> GetChannels() { return mChannels; }
+
+	void Save(const std::wstring &filename);
 
 private:
 	/// Number of frames in the animation

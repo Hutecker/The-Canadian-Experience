@@ -124,6 +124,7 @@
     <ClInclude Include="ViewEdit.h" />
     <ClInclude Include="ViewTimeline.h" />
     <ClInclude Include="ViewTop.h" />
+    <ClInclude Include="XmlNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="ViewEdit.cpp" />
     <ClCompile Include="ViewTimeline.cpp" />
     <ClCompile Include="ViewTop.cpp" />
+    <ClCompile Include="XmlNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CanadianExperience.rc" />

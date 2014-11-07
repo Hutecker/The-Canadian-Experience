@@ -103,6 +103,8 @@ BEGIN
     POPUP "&File"
     BEGIN
         MENUITEM "E&xit",                       ID_APP_EXIT
+        MENUITEM "Save Animation As...",        ID_FILE_SAVEANIMATIONAS
+        MENUITEM "Load Animation",              ID_FILE_LOADANIMATION
     END
     POPUP "&Edit"
     BEGIN
