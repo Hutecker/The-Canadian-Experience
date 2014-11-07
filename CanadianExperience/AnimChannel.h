@@ -129,6 +129,12 @@ public:
 	void SetTimeline(CTimeline *timeline) { mTimeline = timeline; }
 
 	virtual std::shared_ptr<xmlnode::CXmlNode> XmlSave(const std::shared_ptr<xmlnode::CXmlNode> &node);
+	virtual void XmlLoad(const std::shared_ptr<xmlnode::CXmlNode> &node);
+	void Clear();
+
+	/** \brief Channel type specific loading and keyframe creation
+	* \param node Node to load from */
+	virtual void XmlLoadKeyframe(const std::shared_ptr<xmlnode::CXmlNode> &node) = 0;
 
 protected:
 	void InsertKeyframe(std::shared_ptr<Keyframe> keyframe);

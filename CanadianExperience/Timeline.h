@@ -9,6 +9,8 @@
 #pragma once
 
 #include <vector>
+#include <string>
+#include <sstream>
 #include "AnimChannel.h"
 #include "XmlNode.h"
 
@@ -82,6 +84,9 @@ public:
 	std::vector<CAnimChannel*> GetChannels() { return mChannels; }
 
 	void Save(const std::wstring &filename);
+	void Load(const std::wstring &filename);
+	void Clear();
+	void XmlChannel(const std::shared_ptr<xmlnode::CXmlNode> &node);
 
 private:
 	/// Number of frames in the animation

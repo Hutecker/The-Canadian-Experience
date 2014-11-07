@@ -56,3 +56,15 @@ void CAnimChannelAngle::Tween(double t)
 	mAngle = mKeyframe1->GetAngle() * (1 - t) +
 		mKeyframe2->GetAngle() * t;
 }
+
+/**
+* \brief Handle loading this channel's keyframe type
+* \param node keyframe tag node
+*/
+void CAnimChannelAngle::XmlLoadKeyframe(const std::shared_ptr<xmlnode::CXmlNode> &node)
+{
+	double angle = node->GetAttributeDoubleValue(L"angle", 0);
+
+	// Set a keyframe there
+	SetKeyframe(angle);
+}

@@ -60,3 +60,16 @@ void CAnimChannelPoint::Tween(double t)
 	Point c(int(a.X + t * (b.X - a.X)), int(a.Y + t * (b.Y - a.Y)));
 	mPoint = c;
 }
+
+/**
+* \brief Handle loading this channel's keyframe type
+* \param node keyframe tag node
+*/
+void CAnimChannelPoint::XmlLoadKeyframe(const std::shared_ptr<xmlnode::CXmlNode> &node)
+{
+	int x = node->GetAttributeIntValue(L"x", 0);
+	int y = node->GetAttributeIntValue(L"y", 0);
+
+	// Set a keyframe there
+	SetKeyframe(Gdiplus::Point(x, y));
+}

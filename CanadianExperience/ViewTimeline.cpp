@@ -285,4 +285,8 @@ BOOL CViewTimeline::OnEraseBkgnd(CDC* pDC)
 
 	 wstring filename = dlg.GetPathName();
 
+	 auto picture = GetPicture();
+	 picture->GetTimeline()->Load(filename);
+	 picture->SetAnimationTime(0);
+	 picture->UpdateObservers();
  }

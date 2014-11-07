@@ -83,7 +83,8 @@ public:
 		CAnimChannelPoint *mChannel;
 	};
 
-void SetKeyframe(Gdiplus::Point point);
+	void SetKeyframe(Gdiplus::Point point);
+	void XmlLoadKeyframe(const std::shared_ptr<xmlnode::CXmlNode> &node);
 
 protected:
 	void Tween(double t);

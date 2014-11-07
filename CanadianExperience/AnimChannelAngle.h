@@ -79,7 +79,8 @@ public:
 		CAnimChannelAngle *mChannel;
 	};
 
-void SetKeyframe(double angle);
+	void SetKeyframe(double angle);
+	void XmlLoadKeyframe(const std::shared_ptr<xmlnode::CXmlNode> &node);
 
 protected:
 	void Tween(double t);

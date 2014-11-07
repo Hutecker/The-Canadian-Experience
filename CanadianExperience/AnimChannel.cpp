@@ -224,3 +224,34 @@ std::shared_ptr<xmlnode::CXmlNode> CAnimChannel::XmlSave(const std::shared_ptr<x
 
 	return itemNode;
 }
+
+/**
+* \brief Handle loading this channel from a channel tag.
+* \param node channel tag node
+*/
+void CAnimChannel::XmlLoad(const std::shared_ptr<xmlnode::CXmlNode> &node)
+{
+	for (auto node : node->GetChildren())
+	{
+		if (node->GetType() == NODE_ELEMENT && node->GetName() == L"keyframe")
+		{
+			int frame = node->GetAttributeIntValue(L"frame", 0);
+
+			// Pretend we are at that time
+			GetTimeline()->SetCurrentTime(double(frame) / double(GetTimeline()->GetFrameRate()));
+
+			// Have the derived class set the keyframe
+			XmlLoadKeyframe(node);
+		}
+	}
+}
+
+/**
+* \brief Clear all keyframes for this channel.
+*/
+void CAnimChannel::Clear()
+{
+	mKeyframes.clear();
+	mKeyframe1 = -1;
+	mKeyframe2 = -1;
+}
