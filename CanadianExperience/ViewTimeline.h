@@ -65,6 +65,7 @@ public:
 	afx_msg void OnFileLoadanimation();
 	afx_msg void OnPlayPlayfrombeginning();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnPlayPlay();
 };
 
 

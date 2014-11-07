@@ -66,6 +66,7 @@ BEGIN_MESSAGE_MAP(CViewTimeline, CScrollView)
 	ON_COMMAND(ID_FILE_LOADANIMATION, &CViewTimeline::OnFileLoadanimation)
 	ON_COMMAND(ID_PLAY_PLAYFROMBEGINNING, &CViewTimeline::OnPlayPlayfrombeginning)
 	ON_WM_TIMER()
+	ON_COMMAND(ID_PLAY_PLAY, &CViewTimeline::OnPlayPlay)
 END_MESSAGE_MAP()
 
 
@@ -338,6 +339,7 @@ BOOL CViewTimeline::OnEraseBkgnd(CDC* pDC)
 		 frameCounter++;
 	 }
 
+	 mIsPlaying = false;
 	 // delete timer
 	 KillTimer(1);
  }
@@ -353,4 +355,54 @@ BOOL CViewTimeline::OnEraseBkgnd(CDC* pDC)
 	 GetPicture()->UpdateObservers();
 	
 	 __super::OnTimer(nIDEvent);
+ }
+
+
+/**
+ * \brief When the button is clicked the animation will play from where the pointer is
+ */
+ void CViewTimeline::OnPlayPlay()
+ {
+	 GetPicture()->UpdateObservers();
+	 mIsPlaying = true;
+
+	 int totalFrames = GetPicture()->GetTimeline()->GetNumFrames();
+	 int framesPerSec = GetPicture()->GetTimeline()->GetFrameRate();
+
+	 // init timer
+	 SetTimer(1, (totalFrames / framesPerSec), nullptr);
+
+	 /*
+	 * Initialize the elapsed time system
+	 */
+	 LARGE_INTEGER time, freq;
+	 QueryPerformanceCounter(&time);
+	 QueryPerformanceFrequency(&freq);
+
+	 mLastTime = time.QuadPart;
+	 mTimeFreq = double(freq.QuadPart);
+
+	 double elapsed = 0;
+	 double frameTime = static_cast<double>(GetPicture()->GetTimeline()->GetFrameRate()) / static_cast<double>(GetPicture()->GetTimeline()->GetNumFrames());
+	 int frameCounter = GetPicture()->GetTimeline()->GetCurrentTime() * static_cast<double>(static_cast<double>(totalFrames) / framesPerSec);
+	 double max = totalFrames * (static_cast<double>(static_cast<double>(totalFrames) / framesPerSec) / framesPerSec);
+
+	 while (frameCounter <= max)
+	 {
+		 /*
+		 * Compute the elapsed time since the last draw
+		 */
+		 LARGE_INTEGER time;
+		 QueryPerformanceCounter(&time);
+		 long long diff = time.QuadPart - mLastTime;
+		 elapsed = double(diff) / mTimeFreq;
+		 mLastTime = time.QuadPart;
+
+		 GetPicture()->SetAnimationTime(frameCounter * frameTime);
+		 frameCounter++;
+	 }
+
+	 mIsPlaying = false;
+	 // delete timer
+	 KillTimer(1);
  }
