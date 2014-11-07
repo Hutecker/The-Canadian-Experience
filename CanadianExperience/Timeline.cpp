@@ -51,7 +51,13 @@ void CTimeline::Save(const std::wstring &filename)
 	//
 	auto root = CXmlNode::CreateDocument(L"anim");
 
+	root->SetAttribute(L"numframes", mNumFrames);
+	root->SetAttribute(L"framerate", mFrameRate);
 
+	for (auto channel : mChannels)
+	{
+		  channel->XmlSave(root);
+	}
 
 	try
 	{

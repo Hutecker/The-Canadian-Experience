@@ -46,7 +46,6 @@ public:
 		KeyframePoint(CAnimChannelPoint *channel, Gdiplus::Point point) :
 			Keyframe(channel), mChannel(channel), mPoint(point) {}
 
-
 		/**
 		* \brief get the a point
 		* \returns the a point
@@ -63,6 +62,18 @@ public:
 		virtual void UseOnly() override 
 		{
 			mChannel->mPoint = mPoint;
+		}
+
+		/** \brief Save this keyframe to an XML node
+		* \param node The node we are going to be a child of
+		*/
+		std::shared_ptr<xmlnode::CXmlNode> CAnimChannelPoint::KeyframePoint::XmlSave(const std::shared_ptr<xmlnode::CXmlNode> &node)
+		{
+			auto itemNode = CAnimChannel::Keyframe::XmlSave(node);
+			itemNode->SetAttribute(L"x", mPoint.X);
+			itemNode->SetAttribute(L"y", mPoint.Y);
+
+			return itemNode;
 		}
 
 	private:

@@ -61,6 +61,17 @@ public:
 		/** \brief Use this keyframe as the angle */
 		virtual void UseOnly() override { mChannel->mAngle = mAngle; }
 
+		/** \brief Save this keyframe to an XML node
+		* \param node The node we are going to be a child of
+		*/
+		std::shared_ptr<xmlnode::CXmlNode> CAnimChannelAngle::KeyframeAngle::XmlSave(const std::shared_ptr<xmlnode::CXmlNode> &node)
+		{
+			auto itemNode = CAnimChannel::Keyframe::XmlSave(node);
+			itemNode->SetAttribute(L"angle", mAngle);
+
+			return itemNode;
+		}
+
 	private:
 		/// the angle
 		double mAngle;

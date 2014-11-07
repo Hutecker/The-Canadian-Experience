@@ -11,6 +11,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include "XmlNode.h"
 
 class CTimeline;
 
@@ -75,6 +76,18 @@ public:
 		virtual void UseOnly()
 		{}
 
+		/** \brief Save this keyframe to an XML node
+		* \param node The node we are going to be a child of
+		*/
+		virtual std::shared_ptr<xmlnode::CXmlNode> CAnimChannel::Keyframe::XmlSave(const std::shared_ptr<xmlnode::CXmlNode> &node)
+		{
+			auto itemNode = node->AddChild(L"keyframe");
+
+			itemNode->SetAttribute(L"frame", mFrame);
+
+			return itemNode;
+		}
+
 	protected:
 		/// our frame
 		int mFrame;
@@ -114,6 +127,8 @@ public:
 	* \returns the timeline
 	*/
 	void SetTimeline(CTimeline *timeline) { mTimeline = timeline; }
+
+	virtual std::shared_ptr<xmlnode::CXmlNode> XmlSave(const std::shared_ptr<xmlnode::CXmlNode> &node);
 
 protected:
 	void InsertKeyframe(std::shared_ptr<Keyframe> keyframe);

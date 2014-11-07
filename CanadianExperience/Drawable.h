@@ -32,7 +32,7 @@ public:
 	/** \brief Assignment operator disabled */
 	void operator=(const CDrawable &) = delete;
 
-	void SetActor(CActor *actor);
+	virtual void SetActor(CActor *actor);
 
 	/**
 	* \brief draws our object

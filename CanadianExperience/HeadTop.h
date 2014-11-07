@@ -55,6 +55,7 @@ public:
 	virtual void SetKeyframe() override;
 	virtual void GetKeyframe() override;
 	virtual void SetTimeline(CTimeline *timeline) override;
+	void SetActor(CActor *actor);
 private:
 	/// first positions of the 1 eyebrow
 	Gdiplus::Point mEyeBrow11;

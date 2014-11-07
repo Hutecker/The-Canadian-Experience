@@ -135,3 +135,15 @@ void CHeadTop::GetKeyframe()
 	if (mPointChannel.IsValid())
 		CDrawable::SetPosition(mPointChannel.GetPoint());
 }
+
+/**
+* \brief Set the actor. This is where we set the channel name
+* \param actor Actor to set
+*/
+void CHeadTop::SetActor(CActor *actor)
+{
+	CImageDrawable::SetActor(actor);
+
+	// Set the channel name
+	mPointChannel.SetName(actor->GetName() + L":" + GetName() + L":position");
+}

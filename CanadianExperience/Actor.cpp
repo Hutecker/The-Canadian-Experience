@@ -14,6 +14,8 @@ using namespace Gdiplus;
 * \param name The actor name */
 CActor::CActor(const std::wstring &name) : mName(name)
 {
+	// Set the channel name
+	mPointChannel.SetName(name + L":position");
 }
 
 
