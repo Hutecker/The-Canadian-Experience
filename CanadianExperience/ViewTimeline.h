@@ -31,6 +31,7 @@ public:
 	}
 
 	void playFromBeginning();
+	void playFromCurrentLocation();
 
 protected:
 	CViewTimeline();           // protected constructor used by dynamic creation
@@ -57,6 +58,10 @@ private:
 	bool mPlayingFromBeg = false;
 	/// true if first time in loop
 	bool mFirstPass = true;
+	/// true if playing from current location
+	bool mPlayingFromCurrent = false;
+	/// When to stop the playing;
+	bool mStop = false;
 
 protected:
 	virtual void OnDraw(CDC* pDC);      // overridden to draw this view
@@ -76,4 +81,5 @@ public:
 	afx_msg void OnPlayPlayfrombeginning();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnPlayPlay();
+	afx_msg void OnPlayStop();
 };

@@ -67,6 +67,7 @@ BEGIN_MESSAGE_MAP(CViewTimeline, CScrollView)
 	ON_COMMAND(ID_PLAY_PLAYFROMBEGINNING, &CViewTimeline::OnPlayPlayfrombeginning)
 	ON_WM_TIMER()
 	ON_COMMAND(ID_PLAY_PLAY, &CViewTimeline::OnPlayPlay)
+	ON_COMMAND(ID_PLAY_STOP, &CViewTimeline::OnPlayStop)
 END_MESSAGE_MAP()
 
 
@@ -320,7 +321,7 @@ void CViewTimeline::OnFileLoadanimation()
 void CViewTimeline::OnPlayPlayfrombeginning()
 {
 	mPlayingFromBeg = true;
-
+	mStop = false;
 	GetPicture()->SetAnimationTime(0);
 	GetPicture()->UpdateObservers();
 	mIsPlaying = true;
@@ -343,7 +344,7 @@ void CViewTimeline::OnTimer(UINT_PTR nIDEvent)
 	mLastTime = time.QuadPart;
 	mTimeFreq = double(freq.QuadPart);
 
-	if (mPlayingFromBeg)
+	if (mPlayingFromBeg && mStop == false)
 	{	
 		if (mFirstPass)
 		{
@@ -354,6 +355,21 @@ void CViewTimeline::OnTimer(UINT_PTR nIDEvent)
 		else
 		{
 			playFromBeginning();
+		}
+	}
+	else if (mPlayingFromCurrent && mStop == false)
+	{
+		if (mFirstPass)
+		{
+			int totalFrames = GetPicture()->GetTimeline()->GetNumFrames();
+			int framesPerSec = GetPicture()->GetTimeline()->GetFrameRate();
+			mCurrentFrame = GetPicture()->GetTimeline()->GetCurrentTime() * static_cast<double>(static_cast<double>(totalFrames) / framesPerSec);
+			playFromCurrentLocation();
+			mFirstPass = false;
+		}
+		else
+		{
+			playFromCurrentLocation();
 		}
 	}
 
@@ -396,18 +412,21 @@ void CViewTimeline::playFromBeginning()
 */
 void CViewTimeline::OnPlayPlay()
 {
-	GetPicture()->UpdateObservers();
+	mStop = false;
+	mPlayingFromCurrent = true;
 	mIsPlaying = true;
+}
 
+void CViewTimeline::playFromCurrentLocation()
+{
 	int totalFrames = GetPicture()->GetTimeline()->GetNumFrames();
 	int framesPerSec = GetPicture()->GetTimeline()->GetFrameRate();
 
 	double elapsed = 0;
 	double frameTime = static_cast<double>(GetPicture()->GetTimeline()->GetFrameRate()) / static_cast<double>(GetPicture()->GetTimeline()->GetNumFrames());
-	int frameCounter = GetPicture()->GetTimeline()->GetCurrentTime() * static_cast<double>(static_cast<double>(totalFrames) / framesPerSec);
 	double max = totalFrames * (static_cast<double>(static_cast<double>(totalFrames) / framesPerSec) / framesPerSec);
 
-	while (frameCounter <= max)
+	if (mCurrentFrame <= max)
 	{
 		/*
 		* Compute the elapsed time since the last draw
@@ -418,11 +437,24 @@ void CViewTimeline::OnPlayPlay()
 		elapsed = double(diff) / mTimeFreq;
 		mLastTime = time.QuadPart;
 
-		GetPicture()->SetAnimationTime(frameCounter * frameTime);
-		frameCounter++;
+		GetPicture()->SetAnimationTime(mCurrentFrame * frameTime);
+	}
+	else
+	{
+		mPlayingFromCurrent = false;
+		mFirstPass = true;
 	}
 
-	mIsPlaying = false;
-	// delete timer
-	KillTimer(1);
+	mCurrentFrame++;
+}
+
+void CViewTimeline::OnPlayStop()
+{
+	if (mIsPlaying)
+	{
+		mStop = true;
+		mFirstPass = true;
+		mPlayingFromBeg = false;
+		mPlayingFromCurrent = false;
+	}
 }
