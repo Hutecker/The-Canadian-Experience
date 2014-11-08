@@ -1,8 +1,8 @@
 /**
- * \file ViewTimeline.cpp
- *
- * \author Stephan Hutecker
- */
+* \file ViewTimeline.cpp
+*
+* \author Stephan Hutecker
+*/
 
 
 #include "stdafx.h"
@@ -55,10 +55,10 @@ CViewTimeline::~CViewTimeline()
 
 
 BEGIN_MESSAGE_MAP(CViewTimeline, CScrollView)
-    ON_WM_CREATE()
-    ON_WM_ERASEBKGND()
-    ON_COMMAND(ID_EDIT_SETKEYFRAME, &CViewTimeline::OnEditSetkeyframe)
-    ON_COMMAND(ID_EDIT_DELETEKEYFRAME, &CViewTimeline::OnEditDeletekeyframe)
+	ON_WM_CREATE()
+	ON_WM_ERASEBKGND()
+	ON_COMMAND(ID_EDIT_SETKEYFRAME, &CViewTimeline::OnEditSetkeyframe)
+	ON_COMMAND(ID_EDIT_DELETEKEYFRAME, &CViewTimeline::OnEditDeletekeyframe)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
@@ -75,13 +75,13 @@ void CViewTimeline::OnInitialUpdate()
 {
 	CScrollView::OnInitialUpdate();
 
-    int sbHeight = GetSystemMetrics(SM_CXHSCROLL);
-    CSize sizeTotal(200, Height - sbHeight - 20);
+	int sbHeight = GetSystemMetrics(SM_CXHSCROLL);
+	CSize sizeTotal(200, Height - sbHeight - 20);
 	SetScrollSizes(MM_TEXT, sizeTotal);
 }
 
-/** \brief Draw this window 
- * \param pDC Device context */
+/** \brief Draw this window
+* \param pDC Device context */
 void CViewTimeline::OnDraw(CDC* pDC)
 {
 	// Get the timeline
@@ -91,9 +91,9 @@ void CViewTimeline::OnDraw(CDC* pDC)
 	CSize sizeTotal(timeline->GetNumFrames() * TickSpacing + BorderLeft + BorderRight, WindowHeight);
 	SetScrollSizes(MM_TEXT, sizeTotal);
 
-    CDoubleBufferDC dbDC(pDC);
+	CDoubleBufferDC dbDC(pDC);
 
-    Graphics graphics(dbDC.m_hDC);    // Create GDI+ graphics context
+	Graphics graphics(dbDC.m_hDC);    // Create GDI+ graphics context
 
 	FontFamily fontFamily(L"Arial");
 	Gdiplus::Font font(&fontFamily, 16);
@@ -143,266 +143,286 @@ void CViewTimeline::OnDraw(CDC* pDC)
 
 	//draws our pointer
 	graphics.DrawImage(mPointer.get(), TickSpacing * timeline->GetFrameRate() * timeline->GetCurrentTime() + 3, hit - 35);
+
+	int totalFrames = GetPicture()->GetTimeline()->GetNumFrames();
+	int framesPerSec = GetPicture()->GetTimeline()->GetFrameRate();
+
+	if (mFirstDraw)
+	{
+		mCurrentFrame = GetPicture()->GetTimeline()->GetCurrentFrame();
+		mFirstDraw = false;
+		SetTimer(1, (totalFrames / framesPerSec), nullptr);
+
+		/*
+		* Initialize the elapsed time system
+		*/
+		LARGE_INTEGER time, freq;
+		QueryPerformanceCounter(&time);
+		QueryPerformanceFrequency(&freq);
+
+		mLastTime = time.QuadPart;
+		mTimeFreq = double(freq.QuadPart);
+	}
 }
 
 
 /** \brief Erase the background
- *
- * This is disabled to eliminate flicker
- * \param pDC Device context 
- * \returns FALSE */
+*
+* This is disabled to eliminate flicker
+* \param pDC Device context
+* \returns FALSE */
 BOOL CViewTimeline::OnEraseBkgnd(CDC* pDC)
 {
-    return FALSE;
+	return FALSE;
 }
 
 /** \brief Handle the Edit>Set Keyframe menu option */
- void CViewTimeline::OnEditSetkeyframe()
- {
-	 for (auto actor : *GetPicture())
-	 {
-		 actor->SetKeyframe();
-	 }
- }
+void CViewTimeline::OnEditSetkeyframe()
+{
+	for (auto actor : *GetPicture())
+	{
+		actor->SetKeyframe();
+	}
+}
 
 
- /** \brief Handle the Edit>Delete Keyframe menu option */
- void CViewTimeline::OnEditDeletekeyframe()
- {
-	 CTimeline *timeline = GetPicture()->GetTimeline();
-	 int currentFrame = timeline->GetCurrentFrame();
-	 for (auto channel : timeline->GetChannels())
-	 {
-		 channel->DeleteFrame(currentFrame);
-	 }
- }
+/** \brief Handle the Edit>Delete Keyframe menu option */
+void CViewTimeline::OnEditDeletekeyframe()
+{
+	CTimeline *timeline = GetPicture()->GetTimeline();
+	int currentFrame = timeline->GetCurrentFrame();
+	for (auto channel : timeline->GetChannels())
+	{
+		channel->DeleteFrame(currentFrame);
+	}
+}
 
 
- /** Handle a left button mouse press event
- * \param nFlags flags associated with the mouse press
- * \param point The location of the mouse press
- */
- void CViewTimeline::OnLButtonDown(UINT nFlags, CPoint point)
- {
-	 // Convert mouse coordinates to logical coordinates
-	 CClientDC dc(this);
-	 OnPrepareDC(&dc);
-	 dc.DPtoLP(&point);
+/** Handle a left button mouse press event
+* \param nFlags flags associated with the mouse press
+* \param point The location of the mouse press
+*/
+void CViewTimeline::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// Convert mouse coordinates to logical coordinates
+	CClientDC dc(this);
+	OnPrepareDC(&dc);
+	dc.DPtoLP(&point);
 
-	 int x = point.x;
+	int x = point.x;
 
-	 // Get the timeline
-	 CTimeline *timeline = GetPicture()->GetTimeline();
-	 int pointerX = (int)(timeline->GetCurrentTime() * timeline->GetFrameRate() * TickSpacing + BorderLeft);
+	// Get the timeline
+	CTimeline *timeline = GetPicture()->GetTimeline();
+	int pointerX = (int)(timeline->GetCurrentTime() * timeline->GetFrameRate() * TickSpacing + BorderLeft);
 
-	 mMovingPointer = x >= pointerX - (int)mPointer->GetWidth() / 2 && x <= pointerX + (int)mPointer->GetWidth() / 2;
+	mMovingPointer = x >= pointerX - (int)mPointer->GetWidth() / 2 && x <= pointerX + (int)mPointer->GetWidth() / 2;
 
-	 __super::OnLButtonDown(nFlags, point);
- }
-
-/**
- * \brief Determines what happens when we move the mouse
- * \param nFlags flags
- * \param point location of mouse
- */
- void CViewTimeline::OnMouseMove(UINT nFlags, CPoint point)
- {
-	 // Convert mouse coordinates to logical coordinates
-	 CClientDC dc(this);
-	 OnPrepareDC(&dc);
-	 dc.DPtoLP(&point);
-
-	 int x = point.x;
-
-	 if (mMovingPointer)
-	 {
-		 CTimeline *timeline = GetPicture()->GetTimeline();
-
-		 double pointerX = (static_cast<double>(x) / static_cast<double>(timeline->GetFrameRate()))
-			 / static_cast<double>(TickSpacing);
-		
-		 if (pointerX >= (timeline->GetNumFrames()/timeline->GetFrameRate()))
-		 {
-			 GetPicture()->SetAnimationTime(timeline->GetNumFrames() / timeline->GetFrameRate());
-			 GetPicture()->UpdateObservers();
-		 }
-		 else if (pointerX <= 0)
-		 {
-			 GetPicture()->SetAnimationTime(0);
-			 GetPicture()->UpdateObservers();
-		 }
-		 else
-		 {
-			 GetPicture()->SetAnimationTime(pointerX);
-			 GetPicture()->UpdateObservers();
-		 }
-	 }
-
-	 __super::OnMouseMove(nFlags, point);
- }
-
+	__super::OnLButtonDown(nFlags, point);
+}
 
 /**
- * \brief what to do on left mouse release
- * \param nFlags flags
- * \param point point of our mouse
- */
- void CViewTimeline::OnLButtonUp(UINT nFlags, CPoint point)
- {
-	 mMovingPointer = false;
+* \brief Determines what happens when we move the mouse
+* \param nFlags flags
+* \param point location of mouse
+*/
+void CViewTimeline::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// Convert mouse coordinates to logical coordinates
+	CClientDC dc(this);
+	OnPrepareDC(&dc);
+	dc.DPtoLP(&point);
 
-	 __super::OnLButtonUp(nFlags, point);
- }
+	int x = point.x;
 
- /**
- * \brief Handle the File/Save Animation As menu option
- */
- void CViewTimeline::OnFileSaveanimationas()
- {
-	 CFileDialog dlg(false,  // false = Save dialog box
-		 L".anim",           // Default file extension
-		 nullptr,            // Default file name (none)
-		 OFN_OVERWRITEPROMPT,      // Flags (none)
-		 L"Animation Files (*.anim)|*.anim|All Files (*.*)|*.*||");    // Filter 
-	 if (dlg.DoModal() != IDOK)
-		 return;
+	if (mMovingPointer)
+	{
+		CTimeline *timeline = GetPicture()->GetTimeline();
 
-	 wstring filename = dlg.GetPathName();
-	 auto picture = GetPicture();
-	 picture->GetTimeline()->Save(filename);
- }
+		double pointerX = (static_cast<double>(x) / static_cast<double>(timeline->GetFrameRate()))
+			/ static_cast<double>(TickSpacing);
 
+		if (pointerX >= (timeline->GetNumFrames() / timeline->GetFrameRate()))
+		{
+			GetPicture()->SetAnimationTime(timeline->GetNumFrames() / timeline->GetFrameRate());
+			GetPicture()->UpdateObservers();
+		}
+		else if (pointerX <= 0)
+		{
+			GetPicture()->SetAnimationTime(0);
+			GetPicture()->UpdateObservers();
+		}
+		else
+		{
+			GetPicture()->SetAnimationTime(pointerX);
+			GetPicture()->UpdateObservers();
+		}
+	}
 
- /**
- * \brief Handle the File/Open Animation menu option
- */
- void CViewTimeline::OnFileLoadanimation()
- {
-	 CFileDialog dlg(true,  // true = Open dialog box
-		 L".anim",           // Default file extension
-		 nullptr,            // Default file name (none)
-		 0,      // Flags (none)
-		 L"Animation Files (*.anim)|*.anim|All Files (*.*)|*.*||");    // Filter 
-	 if (dlg.DoModal() != IDOK)
-		 return;
-
-	 wstring filename = dlg.GetPathName();
-
-	 auto picture = GetPicture();
-	 picture->GetTimeline()->Load(filename);
-	 picture->SetAnimationTime(0);
-	 picture->UpdateObservers();
- }
-
-/**
- * \brief When this button is clicked the animation start playing from the beginning
- */
- void CViewTimeline::OnPlayPlayfrombeginning()
- {
-	 GetPicture()->SetAnimationTime(0);
-	 GetPicture()->UpdateObservers();
-	 mIsPlaying = true;
-
-	 int totalFrames = GetPicture()->GetTimeline()->GetNumFrames();
-	 int framesPerSec = GetPicture()->GetTimeline()->GetFrameRate();
-
-	 // init timer
-	 SetTimer(1, (totalFrames / framesPerSec), nullptr);
-
-	 /*
-	 * Initialize the elapsed time system
-	 */
-	 LARGE_INTEGER time, freq;
-	 QueryPerformanceCounter(&time);
-	 QueryPerformanceFrequency(&freq);
-
-	 mLastTime = time.QuadPart;
-	 mTimeFreq = double(freq.QuadPart);
-
-	 double elapsed = 0;
-	 double frameTime = static_cast<double>(GetPicture()->GetTimeline()->GetFrameRate()) / static_cast<double>(GetPicture()->GetTimeline()->GetNumFrames());
-	 int frameCounter = 1;
-	 double max = totalFrames * (static_cast<double>(static_cast<double>(totalFrames) / framesPerSec) / framesPerSec);
-
-	 while (frameCounter <= max)
-	 {
-		 /*
-		 * Compute the elapsed time since the last draw
-		 */
-		 LARGE_INTEGER time;
-		 QueryPerformanceCounter(&time);
-		 long long diff = time.QuadPart - mLastTime;
-		 elapsed = double(diff) / mTimeFreq;
-		 mLastTime = time.QuadPart;
-
-		 GetPicture()->SetAnimationTime(frameCounter * frameTime);
-		 frameCounter++;
-	 }
-
-	 mIsPlaying = false;
-	 // delete timer
-	 KillTimer(1);
- }
+	__super::OnMouseMove(nFlags, point);
+}
 
 
 /**
- * \brief the timer to enable animations
- * \param nIDEvent an event id
- */
- void CViewTimeline::OnTimer(UINT_PTR nIDEvent)
- {
-	 Invalidate();
-	 GetPicture()->UpdateObservers();
-	
-	 __super::OnTimer(nIDEvent);
- }
+* \brief what to do on left mouse release
+* \param nFlags flags
+* \param point point of our mouse
+*/
+void CViewTimeline::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	mMovingPointer = false;
+
+	__super::OnLButtonUp(nFlags, point);
+}
+
+/**
+* \brief Handle the File/Save Animation As menu option
+*/
+void CViewTimeline::OnFileSaveanimationas()
+{
+	CFileDialog dlg(false,  // false = Save dialog box
+		L".anim",           // Default file extension
+		nullptr,            // Default file name (none)
+		OFN_OVERWRITEPROMPT,      // Flags (none)
+		L"Animation Files (*.anim)|*.anim|All Files (*.*)|*.*||");    // Filter 
+	if (dlg.DoModal() != IDOK)
+		return;
+
+	wstring filename = dlg.GetPathName();
+	auto picture = GetPicture();
+	picture->GetTimeline()->Save(filename);
+}
 
 
 /**
- * \brief When the button is clicked the animation will play from where the pointer is
- */
- void CViewTimeline::OnPlayPlay()
- {
-	 GetPicture()->UpdateObservers();
-	 mIsPlaying = true;
+* \brief Handle the File/Open Animation menu option
+*/
+void CViewTimeline::OnFileLoadanimation()
+{
+	CFileDialog dlg(true,  // true = Open dialog box
+		L".anim",           // Default file extension
+		nullptr,            // Default file name (none)
+		0,      // Flags (none)
+		L"Animation Files (*.anim)|*.anim|All Files (*.*)|*.*||");    // Filter 
+	if (dlg.DoModal() != IDOK)
+		return;
 
-	 int totalFrames = GetPicture()->GetTimeline()->GetNumFrames();
-	 int framesPerSec = GetPicture()->GetTimeline()->GetFrameRate();
+	wstring filename = dlg.GetPathName();
 
-	 // init timer
-	 SetTimer(1, (totalFrames / framesPerSec), nullptr);
+	auto picture = GetPicture();
+	picture->GetTimeline()->Load(filename);
+	picture->SetAnimationTime(0);
+	picture->UpdateObservers();
+}
 
-	 /*
-	 * Initialize the elapsed time system
-	 */
-	 LARGE_INTEGER time, freq;
-	 QueryPerformanceCounter(&time);
-	 QueryPerformanceFrequency(&freq);
+/**
+* \brief When this button is clicked the animation start playing from the beginning
+*/
+void CViewTimeline::OnPlayPlayfrombeginning()
+{
+	mPlayingFromBeg = true;
 
-	 mLastTime = time.QuadPart;
-	 mTimeFreq = double(freq.QuadPart);
+	GetPicture()->SetAnimationTime(0);
+	GetPicture()->UpdateObservers();
+	mIsPlaying = true;
+}
 
-	 double elapsed = 0;
-	 double frameTime = static_cast<double>(GetPicture()->GetTimeline()->GetFrameRate()) / static_cast<double>(GetPicture()->GetTimeline()->GetNumFrames());
-	 int frameCounter = GetPicture()->GetTimeline()->GetCurrentTime() * static_cast<double>(static_cast<double>(totalFrames) / framesPerSec);
-	 double max = totalFrames * (static_cast<double>(static_cast<double>(totalFrames) / framesPerSec) / framesPerSec);
 
-	 while (frameCounter <= max)
-	 {
-		 /*
-		 * Compute the elapsed time since the last draw
-		 */
-		 LARGE_INTEGER time;
-		 QueryPerformanceCounter(&time);
-		 long long diff = time.QuadPart - mLastTime;
-		 elapsed = double(diff) / mTimeFreq;
-		 mLastTime = time.QuadPart;
+/**
+* \brief the timer to enable animations
+* \param nIDEvent an event id
+*/
+void CViewTimeline::OnTimer(UINT_PTR nIDEvent)
+{
+	Invalidate();
+	GetPicture()->UpdateObservers();
 
-		 GetPicture()->SetAnimationTime(frameCounter * frameTime);
-		 frameCounter++;
-	 }
+	LARGE_INTEGER time, freq;
+	QueryPerformanceCounter(&time);
+	QueryPerformanceFrequency(&freq);
 
-	 mIsPlaying = false;
-	 // delete timer
-	 KillTimer(1);
- }
+	mLastTime = time.QuadPart;
+	mTimeFreq = double(freq.QuadPart);
+
+	if (mPlayingFromBeg)
+	{	
+		if (mFirstPass)
+		{
+			mCurrentFrame = 0;
+			playFromBeginning();
+			mFirstPass = false;
+		}
+		else
+		{
+			playFromBeginning();
+		}
+	}
+
+	__super::OnTimer(nIDEvent);
+}
+
+void CViewTimeline::playFromBeginning()
+{
+	int totalFrames = GetPicture()->GetTimeline()->GetNumFrames();
+	int framesPerSec = GetPicture()->GetTimeline()->GetFrameRate();
+
+	double elapsed = 0;
+	double frameTime = static_cast<double>(GetPicture()->GetTimeline()->GetFrameRate()) / static_cast<double>(GetPicture()->GetTimeline()->GetNumFrames());
+	double max = totalFrames * (static_cast<double>(static_cast<double>(totalFrames) / framesPerSec) / framesPerSec);
+
+	if (mCurrentFrame <= max)
+	{
+		/*
+		* Compute the elapsed time since the last draw
+		*/
+		LARGE_INTEGER time;
+		QueryPerformanceCounter(&time);
+		long long diff = time.QuadPart - mLastTime;
+		elapsed = double(diff) / mTimeFreq;
+		mLastTime = time.QuadPart;
+
+		GetPicture()->SetAnimationTime(mCurrentFrame * frameTime);
+	}
+	else
+	{
+		mPlayingFromBeg = false;
+		mFirstPass = true;
+	}
+
+	mCurrentFrame++;
+}
+
+/**
+* \brief When the button is clicked the animation will play from where the pointer is
+*/
+void CViewTimeline::OnPlayPlay()
+{
+	GetPicture()->UpdateObservers();
+	mIsPlaying = true;
+
+	int totalFrames = GetPicture()->GetTimeline()->GetNumFrames();
+	int framesPerSec = GetPicture()->GetTimeline()->GetFrameRate();
+
+	double elapsed = 0;
+	double frameTime = static_cast<double>(GetPicture()->GetTimeline()->GetFrameRate()) / static_cast<double>(GetPicture()->GetTimeline()->GetNumFrames());
+	int frameCounter = GetPicture()->GetTimeline()->GetCurrentTime() * static_cast<double>(static_cast<double>(totalFrames) / framesPerSec);
+	double max = totalFrames * (static_cast<double>(static_cast<double>(totalFrames) / framesPerSec) / framesPerSec);
+
+	while (frameCounter <= max)
+	{
+		/*
+		* Compute the elapsed time since the last draw
+		*/
+		LARGE_INTEGER time;
+		QueryPerformanceCounter(&time);
+		long long diff = time.QuadPart - mLastTime;
+		elapsed = double(diff) / mTimeFreq;
+		mLastTime = time.QuadPart;
+
+		GetPicture()->SetAnimationTime(frameCounter * frameTime);
+		frameCounter++;
+	}
+
+	mIsPlaying = false;
+	// delete timer
+	KillTimer(1);
+}

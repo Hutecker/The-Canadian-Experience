@@ -1,10 +1,10 @@
 /**
- * \file ViewTimeline.h
- *
- * \author Stephan Hutecker
- *
- * \brief View window for the animation timeline
- */
+* \file ViewTimeline.h
+*
+* \author Stephan Hutecker
+*
+* \brief View window for the animation timeline
+*/
 
 #pragma once
 
@@ -18,7 +18,7 @@ class CViewTimeline : public CScrollView, public CPictureObserver
 	DECLARE_DYNCREATE(CViewTimeline)
 
 public:
-    static const int Height = 90;      ///< Height to make this window
+	static const int Height = 90;      ///< Height to make this window
 	/** \brief Set the mainFrame pointer
 	* \param mainFrame Pointer to the CMainFrame window */
 	void SetMainFrame(CMainFrame *mainFrame) { mMainFrame = mainFrame; }
@@ -29,6 +29,8 @@ public:
 		Invalidate();
 		UpdateWindow();
 	}
+
+	void playFromBeginning();
 
 protected:
 	CViewTimeline();           // protected constructor used by dynamic creation
@@ -47,6 +49,14 @@ private:
 	long long mLastTime;
 	/// Rate the timer updates
 	double mTimeFreq;
+	/// True until the first time we draw
+	bool mFirstDraw = true;
+	/// the current frame
+	int mCurrentFrame = 0;
+	/// true if playing from bg
+	bool mPlayingFromBeg = false;
+	/// true if first time in loop
+	bool mFirstPass = true;
 
 protected:
 	virtual void OnDraw(CDC* pDC);      // overridden to draw this view
@@ -55,9 +65,9 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 public:
-    afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-    afx_msg void OnEditSetkeyframe();
-    afx_msg void OnEditDeletekeyframe();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	afx_msg void OnEditSetkeyframe();
+	afx_msg void OnEditDeletekeyframe();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
@@ -67,5 +77,3 @@ public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnPlayPlay();
 };
-
-
