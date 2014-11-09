@@ -105,6 +105,7 @@
     <ClInclude Include="AnimChannel.h" />
     <ClInclude Include="AnimChannelAngle.h" />
     <ClInclude Include="AnimChannelPoint.h" />
+    <ClInclude Include="AnimChannelText.h" />
     <ClInclude Include="CanadianExperience.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="HaroldFactory.h" />
@@ -135,6 +136,7 @@
     <ClCompile Include="AnimChannel.cpp" />
     <ClCompile Include="AnimChannelAngle.cpp" />
     <ClCompile Include="AnimChannelPoint.cpp" />
+    <ClCompile Include="AnimChannelText.cpp" />
     <ClCompile Include="CanadianExperience.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="HaroldFactory.cpp" />

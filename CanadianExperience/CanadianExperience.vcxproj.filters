@@ -99,6 +99,9 @@
     <ClInclude Include="TextBubbleDrawable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AnimChannelText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CanadianExperience.cpp">
@@ -174,6 +177,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TextBubbleDrawable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimChannelText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
