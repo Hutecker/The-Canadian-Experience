@@ -10,6 +10,7 @@
 #include "PolyDrawable.h"
 #include "ImageDrawable.h"
 #include "HeadTop.h"
+#include "TextBubbleDrawable.h"
 
 using namespace Gdiplus;
 using namespace std;
@@ -107,6 +108,14 @@ std::shared_ptr<CActor> CHaroldFactory::Create()
 	rhand->AddPoint(Point(11, -2));
 	rarm->AddChild(rhand);
 
+	auto textBubbleLeft = make_shared<CTextBubbleDrawable>(L"Text Bubble Left");
+	textBubbleLeft->SetBubblePosition(-50, -90); 
+	headt->AddChild(textBubbleLeft);
+
+	auto textBubbleRight = make_shared<CTextBubbleDrawable>(L"Text Bubble Right");
+	textBubbleRight->SetMirror(true);
+	textBubbleRight->SetBubblePosition(50, -90);
+	headt->AddChild(textBubbleRight);
 
 	actor->AddDrawable(larm);
 	actor->AddDrawable(rarm);
@@ -118,6 +127,8 @@ std::shared_ptr<CActor> CHaroldFactory::Create()
 	actor->AddDrawable(vest);
 	actor->AddDrawable(headb);
 	actor->AddDrawable(headt);
+	actor->AddDrawable(textBubbleLeft);
+	actor->AddDrawable(textBubbleRight);
 
 	return actor;
 }

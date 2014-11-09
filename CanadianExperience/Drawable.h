@@ -45,13 +45,14 @@ public:
 	void AddChild(std::shared_ptr<CDrawable> child);
 
 	virtual bool HitTest(Gdiplus::Point pos) = 0;
+
 	/**
 	* \brief tells us if the actor is moveable
 	* \returns false unles its the top head
 	*/
 	virtual bool IsMovable() { return false; }
 
-	void Move(Gdiplus::Point delta);
+	virtual void Move(Gdiplus::Point delta);
 
 	/** \brief Set the drawable position
 	* \param pos The new drawable position*/

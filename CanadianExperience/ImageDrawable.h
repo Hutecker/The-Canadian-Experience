@@ -16,7 +16,12 @@
 class CImageDrawable : public CDrawable
 {
 public:
-	CImageDrawable();
+	/** \brief Default constructor disabled */
+	CImageDrawable() = delete;
+	/** \brief Copy constructor disabled */
+	CImageDrawable(const CImageDrawable &) = delete;
+	/** \brief Assignment operator disabled */
+	void operator=(const CImageDrawable &) = delete;
 	CImageDrawable(const std::wstring &name, const std::wstring &filename);
 	virtual ~CImageDrawable();
 	void Draw(Gdiplus::Graphics *graphics);
