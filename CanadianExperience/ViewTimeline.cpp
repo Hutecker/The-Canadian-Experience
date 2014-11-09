@@ -376,6 +376,9 @@ void CViewTimeline::OnTimer(UINT_PTR nIDEvent)
 	__super::OnTimer(nIDEvent);
 }
 
+/**
+ * \brief plays the animation from the beginning
+ */
 void CViewTimeline::playFromBeginning()
 {
 	int totalFrames = GetPicture()->GetTimeline()->GetNumFrames();
@@ -417,6 +420,9 @@ void CViewTimeline::OnPlayPlay()
 	mIsPlaying = true;
 }
 
+/**
+ * \brief plays the animation from the current location
+ */
 void CViewTimeline::playFromCurrentLocation()
 {
 	int totalFrames = GetPicture()->GetTimeline()->GetNumFrames();
@@ -448,6 +454,10 @@ void CViewTimeline::playFromCurrentLocation()
 	mCurrentFrame++;
 }
 
+
+/**
+ * \brief stops the animation
+ */
 void CViewTimeline::OnPlayStop()
 {
 	if (mIsPlaying)
