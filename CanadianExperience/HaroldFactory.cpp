@@ -109,12 +109,12 @@ std::shared_ptr<CActor> CHaroldFactory::Create()
 	rarm->AddChild(rhand);
 
 	auto textBubbleLeft = make_shared<CTextBubbleDrawable>(L"Text Bubble Left");
-	textBubbleLeft->SetBubblePosition(-50, -90); 
+	textBubbleLeft->SetBubblePosition(50, -90); 
 	headt->AddChild(textBubbleLeft);
 
 	auto textBubbleRight = make_shared<CTextBubbleDrawable>(L"Text Bubble Right");
 	textBubbleRight->SetMirror(true);
-	textBubbleRight->SetBubblePosition(50, -90);
+	textBubbleRight->SetBubblePosition(-50, -90);
 	headt->AddChild(textBubbleRight);
 
 	actor->AddDrawable(larm);

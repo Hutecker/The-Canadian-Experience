@@ -114,6 +114,7 @@ BEGIN
         MENUITEM "&Set Keyframe",               ID_EDIT_SETKEYFRAME
         MENUITEM "&Delete Keyframe",            ID_EDIT_DELETEKEYFRAME
         MENUITEM "&Timeline Properties...",     ID_EDIT_TIMELINEPROPERTIES
+        MENUITEM "Add Text Bubble",             ID_EDIT_ADDTEXTBUBBLE
     END
     POPUP "&View"
     BEGIN

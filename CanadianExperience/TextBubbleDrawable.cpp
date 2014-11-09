@@ -18,6 +18,7 @@ using namespace Gdiplus;
 CTextBubbleDrawable::CTextBubbleDrawable(const std::wstring &name)
 	: CDrawable(name)
 {
+	mTextBubble.SetMirrored(false);
 }
 
 
