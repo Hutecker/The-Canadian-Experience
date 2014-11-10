@@ -49,10 +49,14 @@ private:
 	CMainFrame  *mMainFrame = nullptr;
 	/// the actor we have selected
 	std::shared_ptr<CActor> mSelectedActor;
+	/// the actor we last selected
+	std::shared_ptr<CActor> mPreviouslySelectedActor;
 	/// the drawable that is selected
 	std::shared_ptr<CDrawable> mSelectedDrawable;
 	/// The last mouse position
 	Gdiplus::Point mLastMouse = Gdiplus::Point(0, 0);
+public:
+	afx_msg void OnEditAddtextbubble();
 };
 
 

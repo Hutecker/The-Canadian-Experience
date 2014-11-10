@@ -87,6 +87,8 @@ public:
 	*/
 	CAnimChannelPoint* GetPositionChannel() { return &mPointChannel; }
 
+	void AddTextBubble();
+
 private:
 	/// actors name
 	std::wstring mName;

@@ -130,3 +130,11 @@ void CActor::GetKeyframe()
 	if (mPointChannel.IsValid())
 		mPosition = mPointChannel.GetPoint();
 }
+
+/**
+ * \brief adds a text bubble for this actor
+ */
+void CActor::AddTextBubble()
+{
+	mDrawablesInOrder[mDrawablesInOrder.size() - 1]->OpenDialog();
+}

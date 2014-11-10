@@ -8,6 +8,7 @@
 #include "TextBubbleDrawable.h"
 #include "Timeline.h"
 #include "Actor.h"
+#include "TextBubbleDlg.h"
 
 using namespace std;
 using namespace Gdiplus;
@@ -163,4 +164,21 @@ void CTextBubbleDrawable::GetKeyframe()
 bool CTextBubbleDrawable::IsMovable()
 {
 	return true;
+}
+
+/**
+ * \brief Opens the dialog to set the text
+ */
+void CTextBubbleDrawable::OpenDialog()
+{
+	// Create the dialog box object
+	CTextBubbleDlg dlg;
+
+	// Tell it about the text bubble
+	dlg.SetTextBubble(&mTextBubble);
+	if (dlg.DoModal() == IDOK)
+	{
+		// Take the changes to the text bubble
+		dlg.Take();
+	}
 }

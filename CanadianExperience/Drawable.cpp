@@ -129,3 +129,10 @@ void CDrawable::GetKeyframe()
 	if (mChannel.IsValid())
 		mRotation = mChannel.GetAngle();
 }
+
+/**
+ * \brief opens the appropriate dialog
+ */
+void CDrawable::OpenDialog()
+{
+}

@@ -37,6 +37,7 @@ public:
 	void GetKeyframe() override;
 	void SetTimeline(CTimeline *timeline) override;
 	bool IsMovable();
+	void OpenDialog() override;
 
 private:
 	///Our Text bubble object

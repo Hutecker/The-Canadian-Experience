@@ -25,6 +25,7 @@ BEGIN_MESSAGE_MAP(CViewEdit, CScrollView)
     ON_WM_ERASEBKGND()
     ON_WM_LBUTTONDOWN()
     ON_WM_MOUSEMOVE()
+	ON_COMMAND(ID_EDIT_ADDTEXTBUBBLE, &CViewEdit::OnEditAddtextbubble)
 END_MESSAGE_MAP()
 
 /** \brief Constructor */
@@ -115,6 +116,7 @@ void CViewEdit::OnLButtonDown(UINT nFlags, CPoint point)
 	{
 		mSelectedActor = hitActor;
 		mSelectedDrawable = hitDrawable;
+		mPreviouslySelectedActor = hitActor;
 	}
 
 	__super::OnLButtonDown(nFlags, point);
@@ -175,4 +177,16 @@ void CViewEdit::OnMouseMove(UINT nFlags, CPoint point)
 	}
 
 	__super::OnMouseMove(nFlags, point);
+}
+
+
+/**
+ * \brief brings up the dialog to edit the text bubbles
+ */
+void CViewEdit::OnEditAddtextbubble()
+{
+	if (mPreviouslySelectedActor != nullptr)
+	{
+		mPreviouslySelectedActor->AddTextBubble();
+	}
 }

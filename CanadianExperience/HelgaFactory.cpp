@@ -104,16 +104,10 @@ std::shared_ptr<CActor> CHelgaFactory::Create()
 	rhand->AddPoint(Point(11, -2));
 	rarm->AddChild(rhand);
 
-	auto textBubbleLeft = make_shared<CTextBubbleDrawable>(L"Text Bubble Left");
-	textBubbleLeft->SetBubblePosition(50, -90);
-	textBubbleLeft->SetText(L"");
-	headt->AddChild(textBubbleLeft);
-
-	auto textBubbleRight = make_shared<CTextBubbleDrawable>(L"Text Bubble Right");
-	textBubbleRight->SetMirror(true);
-	textBubbleRight->SetText(L"");
-	textBubbleRight->SetBubblePosition(-50, -90);
-	headt->AddChild(textBubbleRight);
+	auto textBubble = make_shared<CTextBubbleDrawable>(L"Text Bubble");
+	textBubble->SetBubblePosition(50, -90);
+	textBubble->SetText(L"");
+	headt->AddChild(textBubble);
 
 	actor->AddDrawable(larm);
 	actor->AddDrawable(rarm);
@@ -124,8 +118,7 @@ std::shared_ptr<CActor> CHelgaFactory::Create()
 	actor->AddDrawable(shirt);
 	actor->AddDrawable(headb);
 	actor->AddDrawable(headt);
-	actor->AddDrawable(textBubbleLeft);
-	actor->AddDrawable(textBubbleRight);
+	actor->AddDrawable(textBubble);
 
 	return actor;
 }

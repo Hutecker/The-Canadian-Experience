@@ -90,6 +90,7 @@ public:
 
 	virtual void SetKeyframe();
 	virtual void GetKeyframe();
+	virtual void OpenDialog();
 
 protected:
 	CDrawable(const std::wstring &name);
