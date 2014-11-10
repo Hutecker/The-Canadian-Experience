@@ -188,5 +188,6 @@ void CViewEdit::OnEditAddtextbubble()
 	if (mPreviouslySelectedActor != nullptr)
 	{
 		mPreviouslySelectedActor->AddTextBubble();
+		Invalidate();
 	}
 }

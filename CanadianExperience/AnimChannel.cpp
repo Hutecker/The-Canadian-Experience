@@ -162,7 +162,6 @@ void CAnimChannel::InsertKeyframe(std::shared_ptr<Keyframe> keyframe)
  */
 void CAnimChannel::Tween(double t)
 {
-
 }
 
 

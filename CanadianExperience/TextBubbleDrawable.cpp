@@ -129,6 +129,7 @@ void CTextBubbleDrawable::SetActor(CActor *actor)
 
 	// Set the channel name
 	mPointChannel.SetName(actor->GetName() + L":" + GetName() + L":position");
+	mTextChannel.SetName(actor->GetName() + L":" + GetName() + L":text");
 }
 
 /** Add the channels for this drawable to a timeline
