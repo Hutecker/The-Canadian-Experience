@@ -58,6 +58,6 @@ protected:
 
 private:
     CTextBubble *mTextBubble = nullptr;     ///< The text bubble we are editing
-    CString mText;
-    BOOL mMirror;
+    CString mText; ///< The text we entered
+    BOOL mMirror; ///< whether the image is mirrored or not
 };

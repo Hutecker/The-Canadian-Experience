@@ -210,6 +210,7 @@ void CAnimChannel::DeleteFrame(int currentFrame)
 
 /** \brief Save this item to an XML node
 * \param node The node we are going to be a child of
+* \returns the node we saved
 */
 std::shared_ptr<xmlnode::CXmlNode> CAnimChannel::XmlSave(const std::shared_ptr<xmlnode::CXmlNode> &node)
 {

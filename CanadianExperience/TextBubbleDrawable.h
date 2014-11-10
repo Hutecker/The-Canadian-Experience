@@ -10,6 +10,7 @@
 
 #include "Drawable.h"
 #include "TextBubble.h"
+#include "AnimChannelText.h"
 
 /** \brief encapsulation class for the text bubble */
 class CTextBubbleDrawable : public CDrawable
@@ -46,5 +47,7 @@ private:
 	bool mIsMirrored = false;
 	/// The animation channel for animating the point of this drawable
 	CAnimChannelPoint mPointChannel;
+	/// The animation channel for animation the text
+	CAnimChannelText mTextChannel;
 };
 

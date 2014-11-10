@@ -66,6 +66,7 @@ public:
 
 		/** \brief Save this keyframe to an XML node
 		* \param node The node we are going to be a child of
+		* \returns the node we saved
 		*/
 		std::shared_ptr<xmlnode::CXmlNode> CAnimChannelPoint::KeyframePoint::XmlSave(const std::shared_ptr<xmlnode::CXmlNode> &node)
 		{

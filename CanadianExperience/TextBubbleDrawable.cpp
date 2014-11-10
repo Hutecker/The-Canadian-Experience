@@ -138,6 +138,7 @@ void CTextBubbleDrawable::SetTimeline(CTimeline *timeline)
 {
 	CDrawable::SetTimeline(timeline);
 	timeline->AddChannel(&mPointChannel);
+	timeline->AddChannel(&mTextChannel);
 }
 
 /** \brief Set the keyframe based on the current status.
@@ -146,6 +147,7 @@ void CTextBubbleDrawable::SetKeyframe()
 {
 	CDrawable::SetKeyframe();
 	mPointChannel.SetKeyframe(CDrawable::GetPosition());
+	mTextChannel.SetKeyframe(GetText());
 }
 
 /** \brief Get the current channel from the animation system.
@@ -155,6 +157,8 @@ void CTextBubbleDrawable::GetKeyframe()
 	CDrawable::GetKeyframe();
 	if (mPointChannel.IsValid())
 		CDrawable::SetPosition(mPointChannel.GetPoint());
+	if (mTextChannel.IsValid())
+		SetText(mTextChannel.GetText());
 }
 
 /**

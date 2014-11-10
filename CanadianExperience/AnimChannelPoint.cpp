@@ -45,7 +45,7 @@ void CAnimChannelPoint::SetKeyframe(Gdiplus::Point point)
 
 
 /**
-* \brief Compute an angle that is an interpolation between two keyframes
+* \brief Compute a point that is an interpolation between two keyframes
 *
 * This function is called after Use1 and Use2, so we have pointers to
 * to valid keyframes of the type KeyframeAngle. This function does the

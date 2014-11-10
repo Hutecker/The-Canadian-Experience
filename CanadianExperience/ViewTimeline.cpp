@@ -335,7 +335,6 @@ void CViewTimeline::OnPlayPlayfrombeginning()
 void CViewTimeline::OnTimer(UINT_PTR nIDEvent)
 {
 	Invalidate();
-	GetPicture()->UpdateObservers();
 
 	LARGE_INTEGER time, freq;
 	QueryPerformanceCounter(&time);
