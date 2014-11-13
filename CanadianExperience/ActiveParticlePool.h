@@ -10,6 +10,8 @@
 
 #include "LinkedList.h"
 
+class CSnowflakeController;
+
 /** \brief The list of active particles (snowflakes) */
 class CActiveParticlePool : public CLinkedList
 {
@@ -21,5 +23,11 @@ public:
 	/** \brief Assignment operator disabled */
 	void operator=(const CActiveParticlePool &) = delete;
 	virtual ~CActiveParticlePool();
+	void Draw();
+	void UpdateSnowflakes();
+	
+private:
+	/// The snowflake controller
+	CSnowflakeController* mController;
 };
 
