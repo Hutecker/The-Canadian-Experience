@@ -10,13 +10,12 @@
 
 #include "LinkedList.h"
 
-class CSnowflakeController;
-
 /** \brief reserved particle pool */
 class CParticlePool : public CLinkedList
 {
 public:
-	/** \brief Default constructor disabled */
+	CParticlePool(std::shared_ptr<CSnowflake> snowflake);
+	/** \brief default constructor disabled */
 	CParticlePool() = delete;
 	/** \brief Copy constructor disabled */
 	CParticlePool(const CParticlePool &) = delete;
@@ -24,9 +23,15 @@ public:
 	void operator=(const CParticlePool &) = delete;
 	virtual ~CParticlePool();
 	CSnowflake* Pop();
+	void Initialize();
+	/**
+	* \brief gets the available particles
+	* \returns the available particles
+	*/
+	int GetAvailable() { return mAvailable; }
 
 private:
-	/// Pointer to the snowflake controller
-	CSnowflakeController* mController;
+	/// available particles
+	int mAvailable = 1;
 };
 

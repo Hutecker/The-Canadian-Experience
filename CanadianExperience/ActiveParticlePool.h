@@ -17,17 +17,13 @@ class CActiveParticlePool : public CLinkedList
 {
 public:
 	/** \brief Default constructor disabled */
-	CActiveParticlePool() = delete;
+	CActiveParticlePool();
 	/** \brief Copy constructor disabled */
 	CActiveParticlePool(const CActiveParticlePool &) = delete;
 	/** \brief Assignment operator disabled */
 	void operator=(const CActiveParticlePool &) = delete;
 	virtual ~CActiveParticlePool();
-	void Draw();
+	void Draw(Gdiplus::Graphics *graphics);
 	void UpdateSnowflakes();
-	
-private:
-	/// The snowflake controller
-	CSnowflakeController* mController;
 };
 

@@ -6,7 +6,23 @@
 
 #include "stdafx.h"
 #include "SnowflakeController.h"
+#include "Snowflake.h"
 #include "Picture.h"
+
+using namespace std;
+using namespace Gdiplus;
+
+/**
+* \brief constructor
+*/
+CSnowflakeController::CSnowflakeController()
+{
+	auto flake = make_shared<CSnowflake>();
+	auto pool = make_shared<CParticlePool>(flake);
+	auto activePool = make_shared<CActiveParticlePool>();
+	this->AddPool(pool);
+	this->AddActivePool(activePool);
+}
 
 /**
  * \brief destructor
@@ -68,11 +84,36 @@ void CSnowflakeController::SetBias()
 /**
  * \brief draws our snowflakes
  */
-void CSnowflakeController::Draw()
+void CSnowflakeController::Draw(Graphics *graphics)
 {
-
+	mActiveParticles->Draw(graphics);
 }
 
+/**
+ * \brief initializes our particle pool
+ */
+void CSnowflakeController::InitializePool()
+{
+	mParticlePool->Initialize();
+}
 
+/**
+ * \brief adds the particle pools
+ * \param pool the pool to add
+ */
+void CSnowflakeController::AddPool(std::shared_ptr<CParticlePool> pool)
+{
+	mParticlePool = pool;
+	pool->AddController(this);
+}
 
+/**
+* \brief adds the active particle pool
+* \param pool the pool to add
+*/
+void CSnowflakeController::AddActivePool(std::shared_ptr<CActiveParticlePool> pool)
+{
+	mActiveParticles = pool;
+	pool->AddController(this);
+}
 

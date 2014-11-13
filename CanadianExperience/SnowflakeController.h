@@ -18,8 +18,7 @@ class CPicture;
 class CSnowflakeController
 {
 public:
-	/** \brief Default constructor disabled */
-	CSnowflakeController() = delete;
+	CSnowflakeController();
 	/** \brief Copy constructor disabled */
 	CSnowflakeController(const CSnowflakeController &) = delete;
 	/** \brief Assignment operator disabled */
@@ -31,7 +30,23 @@ public:
 	void MoveToPool(CSnowflake snowflake);
 	void CreateBias();
 	void SetBias();
-	void Draw();
+	void Draw(Gdiplus::Graphics *graphics);
+	void InitializePool();
+
+	/**
+	* \brief gets the particles available
+	* \returns the particles available
+	*/
+	int GetPoolSize(){ return mParticlePool->GetAvailable(); }
+
+	/**
+	* \brief sets the picture
+	* \param picture the picture to set
+	*/
+	void SetPicture(CPicture* picture){ mPicture = picture; }
+
+	void AddPool(std::shared_ptr<CParticlePool> pool);
+	void AddActivePool(std::shared_ptr<CActiveParticlePool> pool);
 
 private:
 	/// the bias on the snowflake (wind)

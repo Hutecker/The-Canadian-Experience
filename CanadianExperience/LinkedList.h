@@ -12,24 +12,30 @@
 #include <memory>
 #include "Snowflake.h"
 
+class CSnowflakeController;
+
 /** \brief a simple singly linked list */
 class CLinkedList
 {
 public:
+	CLinkedList(std::shared_ptr<CSnowflake> snowflake);
 	/** \brief Default constructor disabled */
-	CLinkedList() = delete;
+	CLinkedList();
 	/** \brief Copy constructor disabled */
 	CLinkedList(const CLinkedList &) = delete;
 	/** \brief Assignment operator disabled */
 	void operator=(const CLinkedList &) = delete;
 	virtual ~CLinkedList();
-	void Add(CSnowflake snowflake);
-	void Remove(CSnowflake snowflake);
-	void Insert(CSnowflake snowflake);
-	CSnowflake* Find(CSnowflake snowflake);
+	void Add(std::shared_ptr<CSnowflake> snowflake);
+	void Remove(std::shared_ptr<CSnowflake> snowflake);
+	void AddController(CSnowflakeController* controller);
 
 private:
-	/// pointer to all of our snowflakes
-	std::vector<std::shared_ptr<CSnowflake> > mSnowflakeVector;
+	/// Pointer to the snowflake controller
+	CSnowflakeController* mController;
+
+protected:
+	/// First element in our list
+	std::shared_ptr<CSnowflake> mRoot;
 };
 

@@ -6,6 +6,25 @@
 
 #include "stdafx.h"
 #include "LinkedList.h"
+#include "SnowflakeController.h"
+
+using namespace std;
+
+/**
+ * \brief constructor
+ * \param snowflake snowflake that will be our root
+ */
+CLinkedList::CLinkedList(std::shared_ptr<CSnowflake> snowflake)
+{
+	mRoot = snowflake;
+}
+
+/**
+* \brief constructor
+*/
+CLinkedList::CLinkedList()
+{
+}
 
 /**
  * \brief destructor
@@ -15,38 +34,51 @@ CLinkedList::~CLinkedList()
 }
 
 /**
- * \brief adds a snowflake to the end of our list
+ * \brief adds a snowflake to the list
  * \param snowflake the snowflake to add
  */
-void CLinkedList::Add(CSnowflake snowflake)
+void CLinkedList::Add(std::shared_ptr<CSnowflake> snowflake)
 {
-
+	// if no root exists
+	if (mRoot == nullptr)
+	{
+		mRoot = snowflake;
+	}
+	else
+	{
+		snowflake->SetNextSnowflake(mRoot);
+		mRoot = snowflake;
+	}
 }
 
 /**
  * \brief removes a snowflake from our list
  * \param snowflake the snowflake to remove
  */
-void CLinkedList::Remove(CSnowflake snowflake)
+void CLinkedList::Remove(shared_ptr<CSnowflake> snowflake)
 {
-
+	shared_ptr<CSnowflake> previous = nullptr;
+	shared_ptr<CSnowflake> current = mRoot;
+	while (current != nullptr)
+	{
+		// removing root snowflake
+		if (current == snowflake && previous == nullptr)
+		{
+			mRoot = snowflake->GetNextSnowflake();
+		}
+		else if (current == snowflake && previous != nullptr)
+		{
+			previous->SetNextSnowflake(current->GetNextSnowflake());
+		}
+		current = current->GetNextSnowflake();
+	}
 }
 
 /**
- * \brief inserts our snowflake at the front of the list
- * \param snowflake the snowflake to insert
+ * \brief adds the controller
+ * \param controller the controller we're adding
  */
-void CLinkedList::Insert(CSnowflake snowflake)
+void CLinkedList::AddController(CSnowflakeController* controller)
 {
-
-}
-
-/**
- * \brief finds a snowflake in our list
- * \param snowflake the snowflake to find
- * \returns the pointer to that snowflake
- */
-CSnowflake* CLinkedList::Find(CSnowflake snowflake)
-{
-	return &snowflake;
+	mController = controller;
 }

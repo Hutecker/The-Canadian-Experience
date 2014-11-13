@@ -325,6 +325,7 @@ void CViewTimeline::OnPlayPlayfrombeginning()
 	GetPicture()->SetAnimationTime(0);
 	GetPicture()->UpdateObservers();
 	mIsPlaying = true;
+	GetPicture()->SetPlaying(true);
 }
 
 
@@ -404,6 +405,7 @@ void CViewTimeline::playFromBeginning()
 	{
 		mPlayingFromBeg = false;
 		mFirstPass = true;
+		GetPicture()->SetPlaying(false);
 	}
 
 	mCurrentFrame++;
@@ -417,6 +419,7 @@ void CViewTimeline::OnPlayPlay()
 	mStop = false;
 	mPlayingFromCurrent = true;
 	mIsPlaying = true;
+	GetPicture()->SetPlaying(true);
 }
 
 /**
@@ -448,6 +451,7 @@ void CViewTimeline::playFromCurrentLocation()
 	{
 		mPlayingFromCurrent = false;
 		mFirstPass = true;
+		GetPicture()->SetPlaying(false);
 	}
 
 	mCurrentFrame++;
@@ -465,5 +469,6 @@ void CViewTimeline::OnPlayStop()
 		mFirstPass = true;
 		mPlayingFromBeg = false;
 		mPlayingFromCurrent = false;
+		GetPicture()->SetPlaying(false);
 	}
 }

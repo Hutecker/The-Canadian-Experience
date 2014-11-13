@@ -12,6 +12,7 @@
 #include "PictureObserver.h"
 #include "Actor.h"
 #include "Timeline.h"
+#include "SnowflakeController.h"
 
 using namespace Gdiplus;
 
@@ -44,6 +45,7 @@ public:
 	void UpdateObservers();
 	void Draw(Gdiplus::Graphics *graphics);
 	void AddActor(std::shared_ptr<CActor> actor);
+	void AddSnowController(std::shared_ptr<CSnowflakeController> controller);
 
 
 	/** \brief Contains iterator class for iterating through actors in picture **/
@@ -98,6 +100,11 @@ public:
 
 	void CPicture::SetAnimationTime(double time);
 
+	/**
+	* \brief tells the picture whether we are currently playing or not
+	* \param isplaying true fi we are palying the animation
+	*/
+	void SetPlaying(bool isplaying) { mIsPlaying = isplaying; }
 
 private:
 	/// The picture size
@@ -108,5 +115,9 @@ private:
 	std::vector<std::shared_ptr<CActor> > mActors;
 	/// The animation timeline
 	CTimeline mTimeline;
+	/// the snowflake controller
+	std::shared_ptr<CSnowflakeController> mSnowController;
+	/// whether the animation is playing or not
+	bool mIsPlaying = false;
 };
 

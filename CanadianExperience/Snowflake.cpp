@@ -9,6 +9,9 @@
 #include "ParticlePool.h"
 #include "ActiveParticlePool.h"
 
+using namespace std;
+using namespace Gdiplus;
+
 /**
  * \brief constructor
  */
@@ -43,7 +46,8 @@ void CSnowflake::UpdatePosition()
 /**
  * \brief draws the snowflake
  */
-void CSnowflake::Draw()
+ void CSnowflake::Draw(Graphics *graphics)
 {
-
+	 SolidBrush brush(Color::White);
+	 graphics->FillEllipse(&brush, 210, 210, 2, 2);
 }

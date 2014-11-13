@@ -6,16 +6,19 @@
 
 
 #include "stdafx.h"
+#include <memory>
 #include "Picture.h"
 
 using namespace Gdiplus;
-
+using namespace std;
 
 /**
  * \brief constructor
  */
 CPicture::CPicture()
 {
+	auto controller = make_shared<CSnowflakeController>();
+	this->AddSnowController(controller);
 }
 
 
@@ -65,6 +68,15 @@ void CPicture::Draw(Gdiplus::Graphics *graphics)
 	{
 		actor->Draw(graphics);
 	}
+
+	if (mIsPlaying == true)
+	{
+		if (mSnowController->GetPoolSize() == 1)
+		{
+			mSnowController->InitializePool();
+		}
+		mSnowController->Draw(graphics);
+	}
 }
 
 
@@ -93,4 +105,14 @@ void CPicture::SetAnimationTime(double time)
 	{
 		actor->GetKeyframe();
 	}
+}
+
+/**
+ * \brief sets our snow controller
+ * \param controller the snow controller
+ */
+void CPicture::AddSnowController(std::shared_ptr<CSnowflakeController> controller)
+{
+	mSnowController = controller;
+	controller->SetPicture(this);
 }
