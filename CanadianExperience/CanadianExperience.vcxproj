@@ -112,6 +112,7 @@
     <ClInclude Include="HeadTop.h" />
     <ClInclude Include="HelgaFactory.h" />
     <ClInclude Include="ImageDrawable.h" />
+    <ClInclude Include="LinkedList.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="DoubleBufferDC.h" />
     <ClInclude Include="Picture.h" />
@@ -144,6 +145,7 @@
     <ClCompile Include="HeadTop.cpp" />
     <ClCompile Include="HelgaFactory.cpp" />
     <ClCompile Include="ImageDrawable.cpp" />
+    <ClCompile Include="LinkedList.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Picture.cpp" />
     <ClCompile Include="PictureFactory.cpp" />

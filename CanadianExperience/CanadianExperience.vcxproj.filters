@@ -105,6 +105,9 @@
     <ClInclude Include="SnowflakeController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LinkedList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CanadianExperience.cpp">
@@ -186,6 +189,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SnowflakeController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkedList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
