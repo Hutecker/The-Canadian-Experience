@@ -116,6 +116,7 @@
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="DoubleBufferDC.h" />
+    <ClInclude Include="ParticlePool.h" />
     <ClInclude Include="Picture.h" />
     <ClInclude Include="PictureFactory.h" />
     <ClInclude Include="PictureObserver.h" />
@@ -149,6 +150,7 @@
     <ClCompile Include="ImageDrawable.cpp" />
     <ClCompile Include="LinkedList.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="ParticlePool.cpp" />
     <ClCompile Include="Picture.cpp" />
     <ClCompile Include="PictureFactory.cpp" />
     <ClCompile Include="PictureObserver.cpp" />
