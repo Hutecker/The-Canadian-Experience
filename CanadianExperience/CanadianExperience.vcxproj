@@ -119,6 +119,7 @@
     <ClInclude Include="PictureObserver.h" />
     <ClInclude Include="PolyDrawable.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SnowflakeController.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TextBubbleDrawable.h" />
@@ -148,6 +149,7 @@
     <ClCompile Include="PictureFactory.cpp" />
     <ClCompile Include="PictureObserver.cpp" />
     <ClCompile Include="PolyDrawable.cpp" />
+    <ClCompile Include="SnowflakeController.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

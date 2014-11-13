@@ -102,6 +102,9 @@
     <ClInclude Include="AnimChannelText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SnowflakeController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CanadianExperience.cpp">
@@ -180,6 +183,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AnimChannelText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowflakeController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
