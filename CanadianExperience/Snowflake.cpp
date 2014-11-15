@@ -38,7 +38,7 @@ void CSnowflake::UpdatePosition(Graphics *graphics)
 	long long x = ms.count();
 	mTimeElapsed = (x/1000.0) - mLastTime;
 
-	//mPosition.X = mPosition.X + (mVelocity.X * mTimeElapsed);
+	mPosition.X = mPosition.X + (mBias * mTimeElapsed);
 	mPosition.Y = mPosition.Y + (mVelocity.Y * mTimeElapsed);
 	Draw(graphics);
 }
@@ -60,8 +60,8 @@ double DoubleRand(double fMin, double fMax)
  */
  void CSnowflake::Initialize()
 {
-	 //random number between 0 and 820
-	 double x = DoubleRand(0, 820);
+	 //random number between -200 and 820
+	 double x = DoubleRand(-200, 820);
 	 double y = -10;
 	 //y velocity between 5 and 10
 	 double yVelocity = DoubleRand(0, 2);
@@ -72,7 +72,7 @@ double DoubleRand(double fMin, double fMax)
 	 mVelocity.X = xVelocity;
 	 mVelocity.Y = yVelocity;
 
-	 mBias = 1;
+	 mBias = .5;
 }
 
 /**

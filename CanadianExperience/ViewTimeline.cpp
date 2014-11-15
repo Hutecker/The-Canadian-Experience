@@ -406,6 +406,7 @@ void CViewTimeline::playFromBeginning()
 		mPlayingFromBeg = false;
 		mFirstPass = true;
 		GetPicture()->SetPlaying(false);
+		GetPicture()->UpdateObservers();
 	}
 
 	mCurrentFrame++;
@@ -452,6 +453,7 @@ void CViewTimeline::playFromCurrentLocation()
 		mPlayingFromCurrent = false;
 		mFirstPass = true;
 		GetPicture()->SetPlaying(false);
+		GetPicture()->UpdateObservers();
 	}
 
 	mCurrentFrame++;
@@ -470,5 +472,6 @@ void CViewTimeline::OnPlayStop()
 		mPlayingFromBeg = false;
 		mPlayingFromCurrent = false;
 		GetPicture()->SetPlaying(false);
+		GetPicture()->UpdateObservers();
 	}
 }

@@ -32,7 +32,7 @@ void CActiveParticlePool::Draw(Graphics *graphics)
 	shared_ptr<CSnowflake> current = mRoot;
 	while (current != nullptr)
 	{
-		if (current->GetBias() == 0)
+		if (current->GetBias() == 0.0)
 		{
 			current->Initialize();
 			current->Draw(graphics);

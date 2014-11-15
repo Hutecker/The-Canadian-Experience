@@ -46,8 +46,6 @@ public:
 	std::shared_ptr<CActiveParticlePool> GetActivePool() { return mActiveParticles; }
 
 private:
-	/// the bias on the snowflake (wind)
-	double mBias;
 	/// The picture we're drawing on
 	CPicture *mPicture;
 	/// our active particle pool

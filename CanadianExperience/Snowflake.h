@@ -58,7 +58,7 @@ public:
 	* \brief returns the bias
 	* \returns the bias
 	*/
-	int GetBias(){ return mBias; }
+	double GetBias(){ return mBias; }
 
 	/**
 	* \brief gets the snowflakes position
@@ -77,9 +77,9 @@ private:
 	/// the x and y velocity of our snowflake
 	Gdiplus::PointF mVelocity;
 	/// The time elapsed
-	double mTimeElapsed = 0;
+	double mTimeElapsed = 0.0;
 	/// The bias on the snowflake pushing it in one direction simulating wind
-	double mBias = 0;
+	double mBias = 0.0;
 	/// pointer to the next snowflake in the list
 	std::shared_ptr<CSnowflake> mNextSnowflake;
 	/// pointer to its active pool
@@ -87,6 +87,6 @@ private:
 	/// pointer to its particle pool
 	CParticlePool* mParticlePool;
 	/// the last time we measured
-	double mLastTime = 0;
+	double mLastTime = 0.0;
 };
 

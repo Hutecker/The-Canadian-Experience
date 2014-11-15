@@ -44,8 +44,8 @@ CSnowflakeController::~CSnowflakeController()
  */
 int CSnowflakeController::InitializeSnowflakeRate()
 {
-	//random number between 10 and 24
-	int rate = rand() % 15 + 10;
+	//random number between 10 and 19
+	int rate = rand() % 15 + 5;
 	return rate;
 }
 
