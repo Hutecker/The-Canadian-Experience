@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include <memory>
 #include "LinkedList.h"
 
 class CSnowflakeController;
@@ -24,6 +25,6 @@ public:
 	void operator=(const CActiveParticlePool &) = delete;
 	virtual ~CActiveParticlePool();
 	void Draw(Gdiplus::Graphics *graphics);
-	void UpdateSnowflakes();
+	void SetActivePool(std::shared_ptr<CSnowflake> snowflake);
 };
 

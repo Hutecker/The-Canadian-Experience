@@ -24,20 +24,11 @@ public:
 	/** \brief Assignment operator disabled */
 	void operator=(const CSnowflakeController &) = delete;
 	virtual ~CSnowflakeController();
-	void InitializeSnowflakeRate();
-	void UpdateSnowflakes();
-	void MoveToActive(CSnowflake snowflake);
-	void MoveToPool(CSnowflake snowflake);
-	void CreateBias();
-	void SetBias();
+	int InitializeSnowflakeRate();
+	void MoveToActive(int numberOfSnowflakes);
+	void MoveToPool();
 	void Draw(Gdiplus::Graphics *graphics);
 	void InitializePool();
-
-	/**
-	* \brief gets the particles available
-	* \returns the particles available
-	*/
-	int GetPoolSize(){ return mParticlePool->GetAvailable(); }
 
 	/**
 	* \brief sets the picture
@@ -47,6 +38,12 @@ public:
 
 	void AddPool(std::shared_ptr<CParticlePool> pool);
 	void AddActivePool(std::shared_ptr<CActiveParticlePool> pool);
+
+	/**
+	* \brief gets the active particle pool
+	* \returns the active particle pool
+	*/
+	std::shared_ptr<CActiveParticlePool> GetActivePool() { return mActiveParticles; }
 
 private:
 	/// the bias on the snowflake (wind)

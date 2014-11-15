@@ -5,6 +5,8 @@
  */
 
 #include "stdafx.h"
+#include <stdlib.h>
+#include <time.h>
 #include "SnowflakeController.h"
 #include "Snowflake.h"
 #include "Picture.h"
@@ -22,6 +24,11 @@ CSnowflakeController::CSnowflakeController()
 	auto activePool = make_shared<CActiveParticlePool>();
 	this->AddPool(pool);
 	this->AddActivePool(activePool);
+	mActiveParticles->AddController(this);
+	mParticlePool->AddController(this);
+	InitializePool();
+
+	srand(time(NULL));
 }
 
 /**
@@ -33,52 +40,49 @@ CSnowflakeController::~CSnowflakeController()
 
 /**
  * \brief initializes the rate that our snowflakes are created
+ * \returns the random number generated
  */
-void CSnowflakeController::InitializeSnowflakeRate()
+int CSnowflakeController::InitializeSnowflakeRate()
 {
-
-}
-
-/**
- * \brief updates all of our snowflakes
- */
-void CSnowflakeController::UpdateSnowflakes()
-{
-
+	//random number between 10 and 24
+	int rate = rand() % 15 + 10;
+	return rate;
 }
 
 /**
  * \brief moves a snowflake to the active pool
- * \param snowflake the snowflake to move
+ * \param numberOfSnowflakes the number of snowflakes to move
  */
-void CSnowflakeController::MoveToActive(CSnowflake snowflake)
+void CSnowflakeController::MoveToActive(int numberOfSnowflakes)
 {
-
+	mParticlePool->Pop(numberOfSnowflakes);
 }
 
 /**
  * \brief moves a snowflake to the particle pool
  * \param snowflake snowflake to move
  */
-void CSnowflakeController::MoveToPool(CSnowflake snowflake)
+void CSnowflakeController::MoveToPool()
 {
-
-}
-
-/**
- * \brief creates our wind bias
- */
-void CSnowflakeController::CreateBias()
-{
-
-}
-
-/**
- * \brief sets the wind bias in our snowflakes
- */
-void CSnowflakeController::SetBias()
-{
-
+	shared_ptr<CSnowflake> current = mActiveParticles->GetRoot();
+	shared_ptr<CSnowflake> newCurrent;
+	while (current != nullptr)
+	{
+		PointF location = current->GetPosition();
+		// if below screen remove
+		if (location.Y > 610)
+		{
+			newCurrent = current->GetNextSnowflake();
+			mActiveParticles->Remove(current);
+			current->ResetSnowflake();
+			mParticlePool->Add(current);
+			current = newCurrent;
+		}
+		else
+		{
+			current = current->GetNextSnowflake();
+		}
+	}
 }
 
 /**
@@ -86,7 +90,10 @@ void CSnowflakeController::SetBias()
  */
 void CSnowflakeController::Draw(Graphics *graphics)
 {
+	int rate = InitializeSnowflakeRate();
+	MoveToActive(rate);
 	mActiveParticles->Draw(graphics);
+	MoveToPool();
 }
 
 /**
@@ -116,4 +123,3 @@ void CSnowflakeController::AddActivePool(std::shared_ptr<CActiveParticlePool> po
 	mActiveParticles = pool;
 	pool->AddController(this);
 }
-

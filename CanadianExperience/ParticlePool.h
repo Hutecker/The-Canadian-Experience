@@ -22,16 +22,7 @@ public:
 	/** \brief Assignment operator disabled */
 	void operator=(const CParticlePool &) = delete;
 	virtual ~CParticlePool();
-	CSnowflake* Pop();
+	void Pop(int numberOfSnowflakes);
 	void Initialize();
-	/**
-	* \brief gets the available particles
-	* \returns the available particles
-	*/
-	int GetAvailable() { return mAvailable; }
-
-private:
-	/// available particles
-	int mAvailable = 1;
 };
 

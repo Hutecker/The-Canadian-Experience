@@ -30,12 +30,18 @@ public:
 	void Remove(std::shared_ptr<CSnowflake> snowflake);
 	void AddController(CSnowflakeController* controller);
 
-private:
-	/// Pointer to the snowflake controller
-	CSnowflakeController* mController;
+	/**
+	* \brief get the root node
+	* \returns the root node
+	*/
+	std::shared_ptr<CSnowflake> GetRoot() { return mRoot; }
 
 protected:
 	/// First element in our list
 	std::shared_ptr<CSnowflake> mRoot;
+	/// Pointer to the snowflake controller
+	CSnowflakeController* mController;
+	/// available particles
+	int mAvailable = -1;
 };
 

@@ -106,6 +106,12 @@ public:
 	*/
 	void SetPlaying(bool isplaying) { mIsPlaying = isplaying; }
 
+	/**
+	* \brief sets the elapsed time
+	* \param elapsed the time elapsed
+	*/
+	void SetElapsed(double elapsed) { mElapsed = elapsed; }
+
 private:
 	/// The picture size
 	Gdiplus::Size mSize = Gdiplus::Size(800, 600);
@@ -119,5 +125,7 @@ private:
 	std::shared_ptr<CSnowflakeController> mSnowController;
 	/// whether the animation is playing or not
 	bool mIsPlaying = false;
+	/// elapsed time
+	double mElapsed = 0;
 };
 

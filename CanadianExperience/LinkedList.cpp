@@ -46,9 +46,14 @@ void CLinkedList::Add(std::shared_ptr<CSnowflake> snowflake)
 	}
 	else
 	{
-		snowflake->SetNextSnowflake(mRoot);
-		mRoot = snowflake;
+		auto current = mRoot;
+		while (current->GetNextSnowflake() != nullptr)
+		{
+			current = current->GetNextSnowflake();
+		}
+		current->SetNextSnowflake(snowflake);
 	}
+	mAvailable++;
 }
 
 /**
@@ -65,13 +70,17 @@ void CLinkedList::Remove(shared_ptr<CSnowflake> snowflake)
 		if (current == snowflake && previous == nullptr)
 		{
 			mRoot = snowflake->GetNextSnowflake();
+			break;
 		}
 		else if (current == snowflake && previous != nullptr)
 		{
 			previous->SetNextSnowflake(current->GetNextSnowflake());
+			break;
 		}
+		previous = current;
 		current = current->GetNextSnowflake();
 	}
+	mAvailable--;
 }
 
 /**
@@ -82,3 +91,4 @@ void CLinkedList::AddController(CSnowflakeController* controller)
 {
 	mController = controller;
 }
+

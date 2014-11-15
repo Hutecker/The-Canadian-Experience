@@ -71,10 +71,6 @@ void CPicture::Draw(Gdiplus::Graphics *graphics)
 
 	if (mIsPlaying == true)
 	{
-		if (mSnowController->GetPoolSize() == 1)
-		{
-			mSnowController->InitializePool();
-		}
 		mSnowController->Draw(graphics);
 	}
 }
